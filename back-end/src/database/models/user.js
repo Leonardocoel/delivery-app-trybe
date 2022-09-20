@@ -1,5 +1,5 @@
 const User = (sequelize, DataTypes) => {
-  const User = sequelize.define("User", {
+  const User = sequelize.define("users", {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -10,10 +10,10 @@ const User = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     role: DataTypes.STRING,
-    
   },
   {
     timestamps: false,
+    modelName: 'users',
   }
   );
 
