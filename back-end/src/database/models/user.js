@@ -1,3 +1,5 @@
+'use strict';
+
 const User = (sequelize, DataTypes) => {
   const User = sequelize.define("users", {
     id: {
@@ -13,7 +15,6 @@ const User = (sequelize, DataTypes) => {
   },
   {
     timestamps: false,
-    modelName: 'users',
   }
   );
 
