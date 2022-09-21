@@ -1,8 +1,8 @@
 require('dotenv/config');
 const { users } = require('../database/models');
 
-const registerNewUser = async (username, email, password, role) => {
-  await users.create({ username, email, password, role });
+const registerNewUser = async (username, email, password) => {
+  await users.create({ username, email, password, role: 'customer' });
 
   const newUser = await users.findOne({ where: { email, username } });
   if (newUser) {
