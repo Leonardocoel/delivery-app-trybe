@@ -1,1 +1,55 @@
-{}
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Delivery",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001",
+      "description": "API de desenvolvimento"
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "summary": "User login",
+        "description": "route to application user authentication",
+        "tags": ["Common"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Credentials"
+              },
+              "examples": {
+                "credentials": {
+                  "value": {
+                    "email": "zebirita@email.com",
+                    "password": "$#zebirita#$"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Credentials": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
