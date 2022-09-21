@@ -6,7 +6,7 @@ const validateCredentials = async (email, password) => {
   const user = await users.findOne({ where: { email, password } });
   if (!user) {
     const e = new Error('Invalid fields');
-    e.name = 'ValidationError';
+    e.name = 'NotFoundError';
     throw e;
   }
 
