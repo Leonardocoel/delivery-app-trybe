@@ -9,13 +9,12 @@
   const validateUser = (req, res, next) => {
       const { email, password } = req.body;
       const { error } = newUser.validate({ email, password });
-      console.log(error.details)
       if (error) {
           if (error.details[0].type === 'string.pattern.base') {
             const e = new Error('"email" must be a valid email'); 
             e.name = 'ValidationError';
-            throw e;
-          }
+            throw e; 
+}
           if (error.details[0].type === 'any.required') {
             const e = new Error(error.details[0].message); 
             e.name = 'ValidationError';
@@ -34,5 +33,5 @@
   };
 
 module.exports = {
-  validateUser
-}
+  validateUser,
+};
