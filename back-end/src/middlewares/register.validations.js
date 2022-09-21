@@ -2,13 +2,14 @@
 
   const regexEmail = /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/;
   const newUser = Joi.object({
+      username: Joi.string().min(12).required(),
       email: Joi.string().regex(regexEmail).required(),
       password: Joi.string().min(6).required(),
   });
   
-  const validateUser = (req, res, next) => {
-      const { email, password } = req.body;
-      const { error } = newUser.validate({ email, password });
+  const validateUserRegistration = (req, res, next) => {
+      const { username, email, password } = req.body;
+      const { error } = newUser.validate({ email, password, username });
       if (error) {
           if (error.details[0].type === 'string.pattern.base') {
             const e = new Error('"email" must be a valid email'); 
@@ -29,9 +30,5 @@
   };
   
   module.exports = {
-      validateUser,
+    validateUserRegistration,
   };
-
-module.exports = {
-  validateUser,
-};
