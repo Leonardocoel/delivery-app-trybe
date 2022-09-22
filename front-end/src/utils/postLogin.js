@@ -3,9 +3,11 @@ import axios from 'axios';
 
 export default function postLogin(url, payload) {
   return axios.post(url, payload)
-    .then(({ data }) => {
-      localStorage.setItem(data);
-      console.log(data);
+    .then((res) => {
+      localStorage.setItem('token', res.data.token);
     })
-    .catch((e) => e.response.data.message);
+    .catch((e) => {
+      console.log(e.response.data.message);
+      return e.response.data.message;
+    });
 }
