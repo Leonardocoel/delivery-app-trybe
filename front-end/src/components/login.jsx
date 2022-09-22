@@ -47,7 +47,8 @@ export default function Login() {
           Registrar
 
         </button>
-        {errMessage && <p>{`${errMessage}`}</p>}
+        {errMessage
+          && <p data-testid="common_login__element-invalid-email">{`${errMessage}`}</p>}
       </form>
     </div>
   );
