@@ -14,7 +14,7 @@
     "/login": {
       "post": {
         "summary": "User login",
-        "description": "route to application user authentication",
+        "description": "user authentication route",
         "tags": ["Common"],
         "requestBody": {
           "content": {
@@ -32,6 +32,122 @@
               }
             }
           }
+        },
+        "responses": {
+          "200": {
+            "description": "User logged successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "message": "Invalid credentials"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "summary": "User registration",
+        "description": "user registration route (client)",
+        "tags": ["Common"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "name": "Homer Simpson",
+                    "email": "chunkylover53@aol.com",
+                    "password": "d'oh!"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User registered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "message": "User created successfully"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "message": "\"name\" is required"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "message": "Name or email is already in use"
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -40,7 +156,7 @@
     "schemas": {
       "Credentials": {
         "type": "object",
-        "required": ["email", "password"],
+        "required": true,
         "properties": {
           "email": {
             "type": "string"
@@ -49,6 +165,28 @@
             "type": "string"
           }
         }
+      },
+      "User": {
+        "type": "object",
+        "required": true,
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
