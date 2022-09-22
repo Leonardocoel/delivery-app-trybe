@@ -14,14 +14,34 @@ export default function Login() {
     <div>
       <form onSubmit={ handleSubmit }>
         <input
+          data-testid="common_login__input-email"
           type="email"
           name="email"
           id="email"
           ref={ emailInput }
           placeholder="digite seu email"
         />
-        <input type="password" name="password" id="password" ref={ passwordRef } />
-        <button type="submit">Enviar</button>
+        <input
+          data-testid="common_login__input-password"
+          type="password"
+          name="password"
+          id="password"
+          ref={ passwordRef }
+        />
+        <button
+          data-testid="common_login__button-login"
+          type="submit"
+        >
+          Login
+
+        </button>
+        <button
+          data-testid="common_login__button-register"
+          type="submit"
+        >
+          Registrar
+
+        </button>
       </form>
     </div>
   );
