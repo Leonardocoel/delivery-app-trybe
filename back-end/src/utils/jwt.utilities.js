@@ -12,6 +12,18 @@ const createToken = (user) => {
   return token;
 };
 
+const verifyToken = (token) => {
+  try {
+    const decoded = jwt.verify(token, senha);
+    return decoded;
+  } catch (error) {
+    const e = new Error('expired or invalid token');
+    e.name = 'Unauthorized';
+    throw e;
+  }
+};
+
 module.exports = {
   createToken,
+  verifyToken,
 };
