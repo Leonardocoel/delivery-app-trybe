@@ -1,15 +1,20 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
+import { LOGIN_URL } from '../utils/urls';
+import postLogin from '../utils/postLogin';
 
 export default function Login() {
-  const emailInput = useRef(null);
+  const emailInputRef = useRef(null);
   const passwordRef = useRef(null);
-
-  const handleSubmit = useCallback((e) => {
+  const [errMessage, setErrMessage] = useState();
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
-    console.log(emailInput.current.value);
-    console.log(passwordRef.current.value);
+    const data = {
+      email: emailInputRef.current.value,
+      password: passwordRef.current.value,
+    };
+    const err = await postLogin(LOGIN_URL, data);
+    setErrMessage(err);
   }, []);
-
   return (
     <div>
       <form onSubmit={ handleSubmit }>
@@ -18,7 +23,7 @@ export default function Login() {
           type="email"
           name="email"
           id="email"
-          ref={ emailInput }
+          ref={ emailInputRef }
           placeholder="digite seu email"
         />
         <input
@@ -42,6 +47,7 @@ export default function Login() {
           Registrar
 
         </button>
+        {errMessage && <p>{`${errMessage}`}</p>}
       </form>
     </div>
   );
