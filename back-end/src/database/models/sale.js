@@ -9,7 +9,7 @@ const Sale = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
       },
       userId: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
@@ -19,7 +19,7 @@ const Sale = (sequelize, DataTypes) => {
         },
       },
       sellerId: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
@@ -29,19 +29,19 @@ const Sale = (sequelize, DataTypes) => {
         },
       },
       totalPrice: {
-        type: Sequelize.DECIMAL(9, 2),
+        type: DataTypes.DECIMAL(9, 2),
         allowNull: false,
       },
       deliveryAddress: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       deliveryNumber: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       status: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
       },
     },
@@ -55,8 +55,8 @@ const Sale = (sequelize, DataTypes) => {
   );
 
   Sale.associate = (models) => {
-    Sale.hasOne(models.users, { foreignKey: "userId", as: "userId" });
-    Sale.hasOne(models.users, { foreignKey: "sellerId", as: "sellerId" });
+    Sale.hasOne(models.users, { foreignKey: "userId", as: "userFK" });
+    Sale.hasOne(models.users, { foreignKey: "sellerId", as: "sellerFK" });
   };
 
   return Sale;
