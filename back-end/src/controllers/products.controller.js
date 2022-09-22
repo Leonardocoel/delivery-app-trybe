@@ -8,7 +8,19 @@ const getAll = async (req, res, next) => {
        next(error);
      }
    };
+
+const getById = async (req, res) => {
+  const { id } = req.params;
+  const result = await productsService.getById(id);
+    if (!result) {
+      const e = new Error('Product does not exist');
+      e.name = 'NotFoundError';
+      throw e;
+    }
+  return res.status(200).json(result);
+  };
    
    module.exports = {
-       getAll, 
+       getAll,
+       getById,
      };
