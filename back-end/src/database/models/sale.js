@@ -11,22 +11,12 @@ const Sale = (sequelize, DataTypes) => {
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-        references: {
-          model: "users",
-          key: "id",
-        },
+        foreignKey: true,
       },
       sellerId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
-        references: {
-          model: "users",
-          key: "id",
-        },
+        foreignKey: true,
       },
       totalPrice: {
         type: DataTypes.DECIMAL(9, 2),
@@ -57,6 +47,7 @@ const Sale = (sequelize, DataTypes) => {
   Sale.associate = (models) => {
     Sale.hasOne(models.users, { foreignKey: "userId", as: "userFK" });
     Sale.hasOne(models.users, { foreignKey: "sellerId", as: "sellerFK" });
+    Sale.hasMany(models.SalesProduct, {foreignKey: "saleId", as: "saleFK" })
   };
 
   return Sale;
