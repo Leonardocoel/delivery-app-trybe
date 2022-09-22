@@ -1,5 +1,5 @@
 const Product = (sequelize, DataTypes) => {
-  const Product = sequelize.define("Product", {
+  const Product = sequelize.define("products", {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -12,6 +12,8 @@ const Product = (sequelize, DataTypes) => {
   },
   {
     timestamps: false,
+    underscored: true,
+    modelName: "products"
   }
   );
 
