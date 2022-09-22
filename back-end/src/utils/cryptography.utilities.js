@@ -10,7 +10,7 @@ const md5 = require('md5');
     const validPassword = await users.findOne({ where: { email, password } });
     if (!validPassword) {
         const e = new Error('Invalid credentials');
-        e.name = 'ValidationError';
+        e.name = 'NotFoundError';
         throw e;
       }
     return validPassword;
