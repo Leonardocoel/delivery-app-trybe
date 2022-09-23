@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { requestPost } from '../services/requests';
+import { useNavigate } from 'react-router-dom';
+
+import { requestPost, setToken } from '../services/requests';
 import validationsRegister from '../utils/validationsRegister';
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const [isDisabled, setIsDisabled] = useState(true);
   const [{ email, password, name }, setCredentials] = useState(
     { email: '', password: '', name: '' },
   );
 
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-  // const [name, setName] = useState('');
   const [errMessage, setErrMessage] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const user = await requestPost('/register', { email, password });
+      const user = await requestPost('/register', { email, password, name });
+      console.log(user);
 
       setToken(user.token);
 
@@ -27,22 +29,6 @@ export default function Login() {
       setErrMessage(`Error ${status}: ${message} `);
     }
   };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const payload = {
-  //     email,
-  //     password,
-  //   };
-  //   const err = await requestPost('/register', payload);
-  //   setErrMessage(err);
-  // };
-
-  // const handleChange = ({ target: { value, type } }) => {
-  //   if (type === 'email') setEmail(value);
-  //   if (type === 'password') setPassword(value);
-  //   else setName(value);
-  // };
 
   const handleChange = ({ target: { value, name: type } }) => {
     setCredentials((prevCredentials) => ({ ...prevCredentials, [type]: value }));
@@ -98,8 +84,3 @@ export default function Login() {
     </div>
   );
 }
-// - 6: common_register__input-name
-// - 7: common_register__input-email
-// - 8: common_register__input-password
-// - 9: common_register__button-register
-// - 10: common_register__element-invalid_register [Elemento oculto (Mensagens de erro)]
