@@ -5,11 +5,16 @@ const passwordEncryption = require('../utils/cryptography.utilities');
 const validateCredentials = async (email, password) => {
   const encryptedPassword = passwordEncryption.encryptPassword(password);
 
-  const user = await passwordEncryption.verifyPassword(email, encryptedPassword);
+  const {
+    password: noPassword,
+    ...userWithoutPassword
+  } = await passwordEncryption.verifyPassword(email, encryptedPassword);
 
-  const token = JwtUtilities.createToken(user.dataValues);
-
-  return token;
+  const token = JwtUtilities.createToken(userWithoutPassword);
+  return {
+    ...userWithoutPassword,
+    token,
+  };
 };
 module.exports = {
     validateCredentials,
