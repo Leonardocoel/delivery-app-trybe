@@ -12,18 +12,38 @@ const createToken = (user) => {
   return token;
 };
 
-const verifyToken = (token) => {
+const verifyToken = (req, _res, next) => {
+  const token = req.headers.authorization;
+  const { authorization } = req.headers;
+  if (!authorization) {
+    const e = new Error('Token not found');
+    e.name = 'Unauthorized';
+    throw e;
+  }
   try {
-    const decoded = jwt.verify(token, senha);
-    return decoded;
+    const { data } = jwt.verify(token, senha);
+    req.user = data;
+    next();
   } catch (error) {
-    const e = new Error('expired or invalid token');
+    const e = new Error('Expired or invalid token');
     e.name = 'Unauthorized';
     throw e;
   }
 };
 
+  const verifyAccessPrivileges = (req, _res, next) => {
+    const token = req.headers.authorization;
+    const user = jwt.decode(token);
+    if (user.role !== 'admin') {
+      const e = new Error('Access forbidden');
+      e.name = 'Unauthorized';
+      throw e;
+    }
+    next();
+  };
+
 module.exports = {
   createToken,
   verifyToken,
+  verifyAccessPrivileges,
 };
