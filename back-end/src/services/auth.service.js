@@ -11,7 +11,10 @@ const validateCredentials = async (email, password) => {
   } = await passwordEncryption.verifyPassword(email, encryptedPassword);
 
   const token = JwtUtilities.createToken(userWithoutPassword);
-  return token;
+  return {
+    ...userWithoutPassword,
+    token,
+  };
 };
 module.exports = {
     validateCredentials,

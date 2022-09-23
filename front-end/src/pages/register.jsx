@@ -1,45 +1,63 @@
 import React, { useEffect, useState } from 'react';
-import { LOGIN_URL } from '../utils/urls';
-import postLogin from '../utils/postLogin';
-import validations from '../utils/validations';
+import { requestPost } from '../services/requests';
+import validationsRegister from '../utils/validationsRegister';
 
 export default function Login() {
   const [isDisabled, setIsDisabled] = useState(true);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const [{ email, password, name }, setCredentials] = useState(
+    { email: '', password: '', name: '' },
+  );
+
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [name, setName] = useState('');
   const [errMessage, setErrMessage] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const payload = {
-      email,
-      password,
-    };
-    const err = await postLogin(LOGIN_URL, payload);
-    setErrMessage(err);
+    try {
+      const user = await requestPost('/register', { email, password });
+
+      setToken(user.token);
+
+      localStorage.setItem('user', JSON.stringify(user));
+
+      navigate('/customer/products');
+    } catch ({ response: { data: { message }, status } }) {
+      setErrMessage(`Error ${status}: ${message} `);
+    }
   };
 
-  const handleChange = ({ target: { value, type } }) => {
-    if (type === 'email') setEmail(value);
-    if (type === 'password') setPassword(value);
-    else setName(value);
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const payload = {
+  //     email,
+  //     password,
+  //   };
+  //   const err = await requestPost('/register', payload);
+  //   setErrMessage(err);
+  // };
+
+  // const handleChange = ({ target: { value, type } }) => {
+  //   if (type === 'email') setEmail(value);
+  //   if (type === 'password') setPassword(value);
+  //   else setName(value);
+  // };
+
+  const handleChange = ({ target: { value, name: type } }) => {
+    setCredentials((prevCredentials) => ({ ...prevCredentials, [type]: value }));
   };
 
   useEffect(() => {
-    const val = validations(email, password);
-    if (val) {
-      setIsDisabled(false);
-    } else {
-      setIsDisabled(true);
-    }
-  }, [email, password]);
+    const isValid = validationsRegister(email, password, name);
+    setIsDisabled(!isValid);
+  }, [email, password, name]);
 
   return (
     <div>
       <form onSubmit={ (e) => handleSubmit(e) }>
         <input
-          data-testid="common_login__input-email"
+          data-testid="common_register__input-email"
           type="email"
           name="email"
           id="email"
@@ -48,7 +66,7 @@ export default function Login() {
           onChange={ (e) => handleChange(e) }
         />
         <input
-          data-testid="common_login__input-password"
+          data-testid="common_register__input-password"
           type="password"
           name="password"
           id="password"
