@@ -34,7 +34,8 @@ const verifyToken = (req, _res, next) => {
   const verifyAccessPrivileges = (req, _res, next) => {
     const token = req.headers.authorization;
     const user = jwt.decode(token);
-    if (user.role !== 'admin') {
+    console.log(user);
+    if (user.data.role !== 'administrator') {
       const e = new Error('Access forbidden');
       e.name = 'Unauthorized';
       throw e;

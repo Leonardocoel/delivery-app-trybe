@@ -20,9 +20,13 @@ const getUserById = async (req, res) => {
   return res.status(200).json(result);
   };
 
-  const createUser = async (req, res) => {
-    const result = await adminService.createUser(req.body);
-    return res.status(201).json({ result });
+  const createUser = async (req, res, next) => {
+    try {
+      const result = await adminService.createUser(req.body);
+      return res.status(201).json(result);
+    } catch (error) {
+      next(error);
+    }
   };
 
   const updateUser = async (req, res) => {

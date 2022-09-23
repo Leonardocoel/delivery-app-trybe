@@ -1,4 +1,7 @@
+const { Op } = require('sequelize');
 const { users } = require('../database/models');
+const { validateUserCreation } = require('../utils/user.validations');
+const passwordEncryption = require('../utils/cryptography.utilities');
 
 const getAll = async () => {
   const result = await users.findAll();
@@ -14,8 +17,18 @@ const getUserById = async (id) => {
 };
 
 const createUser = async (data) => {
-  const newUser = await users.create(data);
-  return newUser;
+  validateUserCreation(data);
+  const { name, email, password } = data;
+  const encryptedPassword = passwordEncryption.encryptPassword(password);
+  const newUser = await users.findOne({ where: { [Op.or]: [{ name }, { email }] } });
+  if (newUser) {
+    const e = new Error('Name or email is already in use');
+    e.name = 'Conflict';
+    throw e;
+  }
+  const userCreated = await users.create({ 
+    name, email, password: encryptedPassword, role: 'customer' });
+  return userCreated;
 };
 
 const updateUser = async (id, data) => {
