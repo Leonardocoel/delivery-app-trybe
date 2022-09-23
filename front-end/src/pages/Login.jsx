@@ -1,36 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { LOGIN_URL } from '../utils/urls';
-import postLogin from '../utils/postLogin';
+import { useNavigate } from 'react-router-dom';
 import validations from '../utils/validations';
+import { requestPost, setToken } from '../services/requests';
 
 export default function Login() {
+  const navigate = useNavigate();
   const [isDisabled, setIsDisabled] = useState(true);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [{ email, password }, setCredentials] = useState({ email: '', password: '' });
   const [errMessage, setErrMessage] = useState();
+
+  useEffect(() => {
+    const isValid = validations(email, password);
+    setIsDisabled(!isValid);
+  }, [email, password]);
+
+  const handleChange = ({ target: { value, name } }) => {
+    setCredentials((prevCredentials) => ({ ...prevCredentials, [name]: value }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const payload = {
-      email,
-      password,
-    };
-    const err = await postLogin(LOGIN_URL, payload);
-    setErrMessage(err);
-  };
+    try {
+      const user = await requestPost('/login', { email, password });
 
-  const handleChange = ({ target: { value, name } }) => (
-    name === 'email' ? setEmail(value) : setPassword(value)
-  );
+      setToken(user.token);
 
-  useEffect(() => {
-    const val = validations(email, password);
-    if (val) {
-      setIsDisabled(false);
-    } else {
-      setIsDisabled(true);
+      localStorage.setItem('user', JSON.stringify(user));
+
+      navigate('/customer/products');
+    } catch ({ response: { data: { message }, status } }) {
+      setErrMessage(`Error ${status}: ${message} `);
     }
-  }, [email, password]);
+  };
 
   return (
     <div>
@@ -62,13 +63,14 @@ export default function Login() {
         </button>
         <button
           data-testid="common_login__button-register"
-          type="submit"
+          type="button"
+          onClick={ () => navigate('/register') }
         >
           Registrar
 
         </button>
         {errMessage
-          && <p data-testid="common_login__element-invalid-email">{errMessage}</p>}
+            && <p data-testid="common_login__element-invalid-email">{errMessage}</p>}
       </form>
     </div>
   );
