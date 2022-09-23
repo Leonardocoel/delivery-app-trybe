@@ -13,7 +13,7 @@ const Product = (sequelize, DataTypes) => {
         allowNull: false,
       },
       price: {
-        type: DataTypes.DOUBLE(10, 2),
+        type: DataTypes.DECIMAL(4, 2),
         allowNull: false,
       },
       urlImage: {

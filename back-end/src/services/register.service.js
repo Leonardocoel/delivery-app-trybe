@@ -13,7 +13,9 @@ const registerNewUser = async (name, email, password) => {
     e.name = 'Conflict';
     throw e;
   }
-  await users.create({ name, email, password: encryptedPassword, role: 'customer' });
+  const result = await users.create({ name, email, password: encryptedPassword, role: 'customer' });
+  console.log(result);
+
   const payload = validateCredentials(email, password);
 
   return payload;

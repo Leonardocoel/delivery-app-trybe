@@ -23,7 +23,7 @@ export default function Products() {
 
           </p>
           <p data-testid={ `customer_products__element-card-price-<${id}` }>
-            {price}
+            {`${price}`}
 
           </p>
           <img
