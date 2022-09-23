@@ -31,7 +31,8 @@
                 }
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "200": {
@@ -41,15 +42,35 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "token": {
-                      "type": "string"
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string"
+                        },
+                        "token": {
+                          "type": "string"
+                        }
+                      }
                     }
+                  },
+                  "example": {
+                    "name": "Cliente Zé Birita",
+                    "email": "zebirita@email.com",
+                    "role": "customer",
+                    "token": "eyJhbGciOiJIUzI1NiInR5cCI6IkpXVCJ9..."
                   }
                 }
               }
             }
           },
-          "400": {
+          "404": {
             "description": "Invalid credentials",
             "content": {
               "application/json": {
@@ -62,6 +83,24 @@
                   },
                   "example": {
                     "message": "Invalid credentials"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "message": "\"email\" must be a valid email"
                   }
                 }
               }
@@ -101,12 +140,29 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "message": {
-                      "type": "string"
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string"
+                        },
+                        "token": {
+                          "type": "string"
+                        }
+                      }
                     }
                   },
                   "example": {
-                    "message": "User created successfully"
+                    "name": "Cliente Zé Birita",
+                    "email": "zebirita@email.com",
+                    "role": "customer",
+                    "token": "eyJhbGciOiJIUzI1NiInR5cCI6IkpXVCJ9..."
                   }
                 }
               }
@@ -150,7 +206,8 @@
           }
         }
       }
-    }
+    },
+    "/products": {}
   },
   "components": {
     "schemas": {
@@ -171,7 +228,8 @@
         "required": true,
         "properties": {
           "username": {
-            "type": "string"
+            "type": "string",
+            "example": "Homer Simpson"
           },
           "email": {
             "type": "string"
