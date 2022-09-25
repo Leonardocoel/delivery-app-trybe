@@ -9,7 +9,7 @@ export default function ReactRoutes() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const { user } = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('user'));
 
     if (!user && !user?.token) return setIsLoggedIn(false);
   }, []);
