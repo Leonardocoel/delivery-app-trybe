@@ -15,6 +15,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/images', express.static('public/images'));
 app.use('/login', authRouter);
 app.use('/register', registerRouter);
 app.use('/products', productsRouter);

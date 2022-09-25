@@ -1,29 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { requestGet } from '../services/requests';
-import { PRODUCTS_URL } from '../utils/urls';
+import CustomerContext from '../context/CostumerContext';
+import convertValue from '../utils/convertValue';
 
 export default function Products() {
-  const [product, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
+  const { cartState, cartDispatch } = useContext(CustomerContext);
+  const [, items] = cartState;
 
   useEffect(() => {
-    const productss = async () => {
-      const { data } = await requestGet(PRODUCTS_URL);
-      console.log(data);
-      setProducts(data.products);
+    const getProducts = async () => {
+      const productsArr = await requestGet('/products');
+
+      setProducts(productsArr);
     };
-    productss();
+    getProducts();
   }, []);
-  console.log(product);
+
   return (
     <div>
-      { product && product.map(({ id, name, price, urlImage }) => (
+      { products.map(({ id, name, price, urlImage }) => (
         <div key={ name }>
-          <p data-testid={ `customer_products__element-card-title-<${id}` }>
+          <p data-testid={ `customer_products__element-card-title-${id}` }>
             {name}
 
           </p>
-          <p data-testid={ `customer_products__element-card-price-<${id}` }>
-            {`${price}`}
+          <p data-testid={ `customer_products__element-card-price-${id}` }>
+            { convertValue(price) }
 
           </p>
           <img
@@ -34,19 +37,28 @@ export default function Products() {
           <div>
             <button
               type="button"
-              data-testid={ `customer_products__button-card-add-item-${id}` }
+              data-testid={ `customer_products__button-card-rm-item-${id}` }
+              onClick={ () => cartDispatch(
+                { type: 'decrement', payload: { name, price } },
+              ) }
             >
               -
 
             </button>
             <input
               name="quantity"
-              placeholder="quantity"
+              value={ items[name]?.quantity || '0' }
               data-testid={ `customer_products__input-card-quantity-${id}` }
+              onChange={ ({ target: { value } }) => cartDispatch(
+                { type: 'input', payload: { name, price, quantity: parseFloat(value) } },
+              ) }
             />
             <button
               type="button"
-              data-testid={ `customer_products__button-card-rm-item-${id}` }
+              data-testid={ `customer_products__button-card-add-item-${id}` }
+              onClick={ () => cartDispatch(
+                { type: 'increment', payload: { name, price } },
+              ) }
             >
               +
 

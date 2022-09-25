@@ -2,20 +2,13 @@ require('dotenv/config');
 const JwtUtilities = require('../utils/jwt.utilities');
 const passwordEncryption = require('../utils/cryptography.utilities');
 
-const validateCredentials = async (email, password) => {
-  const encryptedPassword = passwordEncryption.encryptPassword(password);
+const AuthService = async (email, password) => {
+  const user = await passwordEncryption.verifyUser(email, password);
 
-  const {
-    password: noPassword,
-    ...userWithoutPassword
-  } = await passwordEncryption.verifyPassword(email, encryptedPassword);
+  const token = JwtUtilities.createToken(user);
 
-  const token = JwtUtilities.createToken(userWithoutPassword);
-  return {
-    ...userWithoutPassword,
-    token,
-  };
+  return { ...user, token };
 };
 module.exports = {
-    validateCredentials,
+    AuthService,
   };

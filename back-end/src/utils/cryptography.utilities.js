@@ -6,22 +6,24 @@ const encryptPassword = (password) => {
   return encryption;
 };
 
-const verifyPassword = async (email, password) => {
-  const validPassword = await users.findOne({
-    where: { email, password },
-    attributes: { exclude: ['id'] },
+const verifyUser = async (email, password) => {
+  const encryptedPassword = encryptPassword(password);
+
+  const validUser = await users.findOne({
+    where: { email, password: encryptedPassword },
+    attributes: { exclude: ['id', 'password'] },
     raw: true,
   });
   
-  if (!validPassword) {
+  if (!validUser) {
     const e = new Error('Invalid credentials');
     e.name = 'NotFoundError';
     throw e;
   }
-  return validPassword;
+  return validUser;
 };
 
 module.exports = {
   encryptPassword,
-  verifyPassword,
+  verifyUser,
 };
