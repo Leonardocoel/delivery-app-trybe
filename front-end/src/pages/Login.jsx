@@ -27,6 +27,9 @@ export default function Login() {
 
       localStorage.setItem('user', JSON.stringify(user));
 
+      if (user.role === 'seller') return navigate('/seller/orders');
+      if (user.role === 'admin') return navigate('/admin/manage');
+
       navigate('/customer/products');
     } catch ({ response: { data: { message }, status } }) {
       setErrMessage(`Error ${status}: ${message} `);
