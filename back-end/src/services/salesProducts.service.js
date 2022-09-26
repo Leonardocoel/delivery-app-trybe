@@ -9,15 +9,18 @@ const getAll = async () => {
         {
           model: users, 
           as: 'sellerFK',
+          include: [SalesProduct, products], 
           through: { 
           attributes: [] } },
         
         { model: products, 
           as: 'productFK',
+          include: [SalesProduct,users], 
           through: {
           attributes: [] } },      
         { model: SalesProduct, 
           as: 'saleFK',
+          include: [products, users ], 
           through: {
           attributes: [] } },
       ],
