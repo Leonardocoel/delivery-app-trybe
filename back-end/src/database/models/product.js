@@ -9,7 +9,7 @@ const Product = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
       },
       name: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(100),
         allowNull: false,
       },
       price: {
@@ -17,7 +17,7 @@ const Product = (sequelize, DataTypes) => {
         allowNull: false,
       },
       urlImage: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(200),
         allowNull: false,
       },
     },

@@ -36,12 +36,12 @@ module.exports = {
         field: "total_price"
       },
       deliveryAddress: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(100),
         allowNull:false,
         field: "delivery_addres"
       },
       deliveryNumber:{
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50),
         allowNull:false,
         field: "delivery_number",
       },
@@ -51,7 +51,7 @@ module.exports = {
         field: "sale_date"
       },
       status: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50),
         allowNull: false,
       },
     });

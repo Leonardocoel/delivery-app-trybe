@@ -23,15 +23,15 @@ const Sale = (sequelize, DataTypes) => {
         allowNull: false,
       },
       deliveryAddress: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(100),
         allowNull: false,
       },
       deliveryNumber: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(50),
         allowNull: false,
       },
       status: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(50),
         allowNull: false,
       },
     },
