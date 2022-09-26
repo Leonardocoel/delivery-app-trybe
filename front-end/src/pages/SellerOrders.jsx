@@ -16,9 +16,9 @@ export default function SellerOrders() {
 
   useEffect(() => {
     const requestOrders = async () => {
-      const orders = await requestGet('/sales');
+      const sellerOrders = await requestGet('/sales');
 
-      setOrders(orders);
+      setOrders(sellerOrders);
     };
 
     requestOrders();
