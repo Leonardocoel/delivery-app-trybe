@@ -13,16 +13,17 @@ const createToken = (user) => {
 };
 
 const verifyToken = (req, _res, next) => {
-  const token = req.headers.authorization;
   const { authorization } = req.headers;
+
   if (!authorization) {
     const e = new Error('Token not found');
     e.name = 'Unauthorized';
     throw e;
   }
   try {
-    const { data } = jwt.verify(token, senha);
+    const { data } = jwt.verify(authorization, senha);
     req.user = data;
+
     next();
   } catch (error) {
     const e = new Error('Expired or invalid token');
@@ -31,17 +32,16 @@ const verifyToken = (req, _res, next) => {
   }
 };
 
-  const verifyAccessPrivileges = (req, _res, next) => {
-    const token = req.headers.authorization;
-    const user = jwt.decode(token);
-    console.log(user);
-    if (user.data.role !== 'administrator') {
-      const e = new Error('Access forbidden');
-      e.name = 'Unauthorized';
-      throw e;
-    }
-    next();
-  };
+const verifyAccessPrivileges = (req, _res, next) => {
+  const { user } = req;
+
+  if (user.role !== 'administrator') {
+    const e = new Error('Access forbidden');
+    e.name = 'Unauthorized';
+    throw e;
+  }
+  next();
+};
 
 module.exports = {
   createToken,
