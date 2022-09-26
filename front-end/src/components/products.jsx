@@ -1,12 +1,21 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { requestGet } from '../services/requests';
+import { useNavigate } from 'react-router-dom';
+import { requestGet, setToken } from '../services/requests';
 import CustomerContext from '../context/CostumerContext';
 import convertValue from '../utils/convertValue';
 
 export default function Products() {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const { cartState, cartDispatch } = useContext(CustomerContext);
   const [, items] = cartState;
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user && !user?.token) return navigate('/login');
+
+    setToken(user.token);
+  }, [navigate]);
 
   useEffect(() => {
     const getProducts = async () => {
