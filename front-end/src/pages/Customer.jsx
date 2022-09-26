@@ -2,8 +2,8 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomerContext from '../context/CostumerContext';
 import { setToken } from '../services/requests';
-import NavBar from '../components/navBar';
-import Products from '../components/products';
+import NavBar from '../components/NavBar';
+import Products from '../components/Products';
 import convertValue from '../utils/convertValue';
 
 export default function CustomerProducts() {
