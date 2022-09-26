@@ -1,0 +1,14 @@
+{
+    "userId": 3,
+    "sellerId": 2,
+    "totalPrice": 25,63,
+    "deliveryAddress": "Rua dos Bobos",
+    "deliveryNumber": "0",
+    "status": "Pending",
+    "productsArray": [
+        {
+          "name": "Itaipava",
+          "quantity": 2
+        }
+      ]
+}
