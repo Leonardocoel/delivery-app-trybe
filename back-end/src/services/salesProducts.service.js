@@ -7,18 +7,18 @@ const getAll = async () => {
     include: [{
       model: users,
       as: 'seller',
-      attributes: { exclude: ['password'] }
+      attributes: { exclude: ['password'] },
     },
     {
       model: products,
       as: 'products',
       attributes: { exclude: ['urlImage'] },
       through: {
-        attributes: ['quantity']
-      }
-    }
-  ]
-  })
+        attributes: ['quantity'],
+      },
+    },
+  ],
+  });
     return salesAndUser;
   };
   

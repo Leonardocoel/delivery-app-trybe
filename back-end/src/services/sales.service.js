@@ -1,7 +1,7 @@
 const { Sale } = require('../database/models');
 const { products } = require('../database/models');
 const { SalesProduct } = require('../database/models');
-const { users } = require('../database/models/')
+const { users } = require('../database/models');
 
 const getAll = async () => {
   const result = await Sale.findAll();
@@ -16,8 +16,8 @@ const getSaleById = async (id) => {
   return user;
 };
 
-const createSale = async (data, name) => {
-  const {dataValues: { id: userId } } = await users.findOne({ where: { name } })
+const createSale = async (data, saleName) => {
+  const { dataValues: { id: userId } } = await users.findOne({ where: { name: saleName } });
   const { sellerId, totalPrice, deliveryAddress, deliveryNumber, productsArray } = data;
 
   const { dataValues } = await Sale.create({
