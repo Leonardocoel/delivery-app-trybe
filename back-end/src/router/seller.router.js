@@ -1,14 +1,14 @@
 const { Router } = require('express');
-const { verifyToken, verifaySeller } = require('../utils/jwt.utilities');
+const { verifyToken, verifySeller } = require('../utils/jwt.utilities');
 const sellerController = require('../controllers/seller.controller');
 
 const router = Router();
 router.use(verifyToken);
-router.use(verifaySeller);
-// router.get('/:id', adminController.getUserById);
+router.use(verifySeller);
+router.get('/:id', sellerController.getOrderById);
 router.get('/', sellerController.getAll);
 // router.post('/', adminController.createUser);
-// router.put('/:id', adminController.updateUser);
-// router.delete('/:id', adminController.deleteUserById);
+router.put('/:id', sellerController.updateOrder);
+router.delete('/:id', sellerController.deleteOrderById);
 
 module.exports = router;

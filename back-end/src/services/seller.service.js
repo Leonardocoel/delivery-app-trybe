@@ -4,17 +4,21 @@ const { Sale } = require('../database/models');
 // const passwordEncryption = require('../utils/cryptography.utilities');
 
 const getAll = async () => {
-  const result = await Sale.findAll({});
-  return result;
+  const order = await Sale.findAll({
+    
+      attributes: { exclude: ['userId']}
+  
+  });
+  return order;
 };
 
-// const getUserById = async (id) => {
-//   const user = await users.findOne(
-//     { where: { id },
-//   },
-// );
-//   return user;
-// };
+const getOrderById = async (id) => {
+  const order = await Sale.findOne(
+    { where: { id },
+  },
+);
+  return order;
+};
 
 // const createUser = async (data) => {
 //   validateUserCreation(data);
@@ -31,31 +35,31 @@ const getAll = async () => {
 //   return userCreated;
 // };
 
-// const updateUser = async (id, data) => {
-//   const result = await getUserById(id);
-//   if (!result) {
-//     const e = new Error('User does not exist');
-//     e.name = 'NotFoundError';
-//     throw e;
-//   }
-//   const resultUpdated = result.update({ data });
-//   return resultUpdated;
-// };
+const updateOrder = async (id, data) => {
+  const order = await getOrderById(id);
+  if (!order) {
+    const e = new Error('Order does not exist');
+    e.name = 'NotFoundError';
+    throw e;
+  }
+  const resultUpdated = result.update({ data });
+  return resultUpdated;
+};
 
-// const deleteUserById = async (id) => {
-//   const product = await getUserById(id);
-//   if (!product) {
-//     const e = new Error('User does not exist');
-//     e.name = 'NotFoundError';
-//     throw e;
-//   }
-//   return users.destroy({ where: { id: [id] } });  
-// };
+const deleteOrderById = async (id) => {
+  const order = await getUserById(id);
+  if (!order) {
+    const e = new Error('User does not exist');
+    e.name = 'NotFoundError';
+    throw e;
+  }
+  return order.destroy({ where: { id: [id] } });  
+};
 
 module.exports = {
   getAll,
-  // getUserById,
+  getOrderById,
   // createUser,
-  // updateUser,
-  // deleteUserById,
+  updateOrder,
+  deleteOrderById,
 };

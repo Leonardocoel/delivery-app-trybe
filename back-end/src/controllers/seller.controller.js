@@ -9,16 +9,16 @@ const getAll = async (req, res, next) => {
      }
    };
 
-// const getUserById = async (req, res) => {
-//   const { id } = req.params;
-//   const result = await adminService.getUserById(id);
-//     if (!result) {
-//       const e = new Error('User does not exist');
-//       e.name = 'NotFoundError';
-//       throw e;
-//     }
-//   return res.status(200).json(result);
-//   };
+const getOrderById = async (req, res) => {
+  const { id } = req.params;
+  const result = await sellerService.getOrderById(id);
+    if (!result) {
+      const e = new Error('Order does not exist');
+      e.name = 'NotFoundError';
+      throw e;
+    }
+  return res.status(200).json(result);
+  };
 
 //   const createUser = async (req, res, next) => {
 //     try {
@@ -29,33 +29,33 @@ const getAll = async (req, res, next) => {
 //     }
 //   };
 
-//   const updateUser = async (req, res) => {
-//     const { id } = req.params;
-//     const result = await adminService.updateUser(Number(id), req.body);
-//     if (!result) {
-//       const e = new Error('Conflict');
-//       e.name = 'Conflict';
-//       throw e;
-//     }
-//     return res.status(200).json(result);
-//   };
+  const updateOrder = async (req, res) => {
+    const { id } = req.params;
+    const result = await sellerService.updateOrder(Number(id), req.body);
+    if (!result) {
+      const e = new Error('Conflict');
+      e.name = 'Conflict';
+      throw e;
+    }
+    return res.status(200).json(result);
+  };
 
-//   const deleteUserById = async (req, res, next) => {
-//     try {
-//       const { id } = req.params;
-//       const result = await adminService.deleteUserById(Number(id));
-//       if (result) {
-//         return res.status(204).end();
-//       }
-//     } catch (err) {
-//       next(err);
-//     }
-//   };
+  const deleteOrderById = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const result = await sellerService.deleteOrderById(Number(id));
+      if (result) {
+        return res.status(204).end();
+      }
+    } catch (err) {
+      next(err);
+    }
+  };
    
    module.exports = {
        getAll,
-      //  getUserById,
+       getOrderById,
       //  createUser,
-      //  updateUser,
-      //  deleteUserById,
+       updateOrder,
+       deleteOrderById,
      };

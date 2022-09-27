@@ -43,7 +43,7 @@ const verifyAccessPrivileges = (req, _res, next) => {
   next();
 };
 
-const verifaySeller = (req, _res, next) => {
+const verifySeller = (req, _res, next) => {
   const { user } = req;
 
   if (user.role !== 'seller') {
@@ -57,5 +57,5 @@ module.exports = {
   createToken,
   verifyToken,
   verifyAccessPrivileges,
-  verifaySeller,
+  verifySeller,
 };
