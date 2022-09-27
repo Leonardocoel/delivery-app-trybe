@@ -1,14 +1,11 @@
-import React, { useContext } from 'react';
-import Address from '../components/Table/Address';
-import Table from '../components/Table/Table';
-import CostumerContext from '../context/CostumerContext';
+import React from 'react';
+import Address from '../components/CheckoutTable/Address';
+import Table from '../components/CheckoutTable/Table';
 
 export default function Checkout() {
-  const { cartState } = useContext(CostumerContext);
-  console.log(cartState);
   return (
     <div>
-      <Table cart={ cartState } />
+      <Table />
       <Address />
     </div>
   );
