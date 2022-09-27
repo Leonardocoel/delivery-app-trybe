@@ -16,7 +16,7 @@ export default function SellerOrders() {
 
   useEffect(() => {
     const requestOrders = async () => {
-      const sellerOrders = await requestGet('/sales');
+      const sellerOrders = await requestGet('/seller/orders');
 
       setOrders(sellerOrders);
     };
@@ -28,7 +28,16 @@ export default function SellerOrders() {
     <main>
       <Header />
       <div>
-        {orders.map((order) => <OrderCard key={ order.id } order={ order } />)}
+        {orders.length !== 0
+        && (
+          <div>
+            {' '}
+            {
+              orders.users
+                .map((order) => <OrderCard key={ order.id } order={ order } />)
+            }
+          </div>
+        )}
       </div>
     </main>
   );

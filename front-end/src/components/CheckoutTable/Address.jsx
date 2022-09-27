@@ -31,10 +31,11 @@ export default function Address() {
       totalPrice: total,
       deliveryAddress,
       deliveryNumber,
-      productsArray: Object.keys(items),
+      productsArray: Object.entries(items),
     };
     const { saleId } = await requestPost('/customer/checkout', body);
-    navigate(`/orders/${saleId}`);
+    console.log(body);
+    navigate(`/customer/orders/${saleId}`);
   };
 
   return (
