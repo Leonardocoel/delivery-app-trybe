@@ -19,7 +19,7 @@ export default function Products() {
 
   useEffect(() => {
     const getProducts = async () => {
-      const productsArr = await requestGet('/products');
+      const productsArr = await requestGet('/customer/products');
 
       setProducts(productsArr);
     };
