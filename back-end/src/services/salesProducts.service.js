@@ -1,31 +1,25 @@
 const { Sale } = require('../database/models');
 const { users } = require('../database/models');
 const { products } = require('../database/models');
-const { SalesProduct } = require('../database/models');
 
 const getAll = async () => {
-    const productDetails = await Sale.findAll({
-      include: [
-        {
-          model: users, 
-          as: 'sellerFK',
-          include: [SalesProduct, products], 
-          through: { 
-          attributes: [] } },
-        
-        { model: products, 
-          as: 'productFK',
-          include: [SalesProduct,users], 
-          through: {
-          attributes: [] } },      
-        { model: SalesProduct, 
-          as: 'saleFK',
-          include: [products, users ], 
-          through: {
-          attributes: [] } },
-      ],
-    });
-    return productDetails;
+  const salesAndUser = await Sale.findAll({
+    include: [{
+      model: users,
+      as: 'seller',
+      attributes: { exclude: ['password'] }
+    },
+    {
+      model: products,
+      as: 'products',
+      attributes: { exclude: ['urlImage'] },
+      through: {
+        attributes: ['quantity']
+      }
+    }
+  ]
+  })
+    return salesAndUser;
   };
   
 const getSaleById = async (id) => {

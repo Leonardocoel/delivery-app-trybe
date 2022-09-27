@@ -48,6 +48,7 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
         field: "sale_date"
       },
       status: {

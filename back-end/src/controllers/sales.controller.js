@@ -24,7 +24,7 @@ return res.status(200).json(result);
 const createSale = async (req, res) => {
   const token = req.headers.authorization;
   const user = jwt.decode(token);
-  const result = await salesService.createSale(req.body, user.data.id);
+  const result = await salesService.createSale(req.body, user.data.name);
   return res.status(201).json(result);
   };
 
