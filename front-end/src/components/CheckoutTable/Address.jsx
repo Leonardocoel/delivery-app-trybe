@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomerContext from '../../context/CostumerContext';
-import { requestGet, requestPost } from '../../services/requests';
+import { requestGet, requestPost, setToken } from '../../services/requests';
 
 export default function Address() {
   const navigate = useNavigate();
@@ -12,6 +12,13 @@ export default function Address() {
   );
   const [sellers, setSeller] = useState([]);
   const [finalSeller, setFinalSeller] = useState('');
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user && !user?.token) return navigate('/login');
+
+    setToken(user.token);
+  }, [navigate]);
 
   useEffect(() => {
     const req = async () => {
@@ -31,10 +38,10 @@ export default function Address() {
       totalPrice: total,
       deliveryAddress,
       deliveryNumber,
-      productsArray: Object.keys(items),
+      productsArray: Object.entries(items),
     };
     const { saleId } = await requestPost('/customer/checkout', body);
-    navigate(`/orders/${saleId}`);
+    navigate(`/customer/orders/${saleId}`);
   };
 
   return (

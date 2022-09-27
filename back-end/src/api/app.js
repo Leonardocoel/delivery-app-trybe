@@ -10,7 +10,7 @@ const salesRouter = require('../router/sales.router');
 const SalesProductsRouter = require('../router/salesProducts.router');
 const adminRouter = require('../router/admin.router');
 const userRouter = require('../router/user.router');
-// const { verifyToken } = require('../utils/jwt.utilities');
+const { verifyToken } = require('../utils/jwt.utilities');
 const errorHandler = require('../middlewares/error.middleware');
 const swaggerDocument = require('../swagger.json');
 
@@ -21,7 +21,7 @@ app.use(cors());
 app.use('/register', registerRouter);
 app.use('/login', authRouter);
 app.use('/images', express.static('public/images'));
-// app.use(verifyToken);
+app.use(verifyToken);
 app.use('/customer/products', productsRouter);
 app.use('/customer/checkout', salesRouter);
 app.use('/customer/orders', SalesProductsRouter);
