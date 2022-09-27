@@ -20,7 +20,7 @@ const createSale = async (data, saleName) => {
   console.log('data: ', saleName);
   const { dataValues: { id: userId } } = await users.findOne({ where: { name: saleName } });
   const { sellerId, totalPrice, deliveryAddress, deliveryNumber, productsArray } = data;
-
+  console.log('CREATEEEEEEEEEEEEE NAME', saleName);
   const { dataValues } = await Sale.create({
     userId,
     sellerId,

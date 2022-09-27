@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import CustomerProducts from './pages/Customer';
 import Login from './pages/Login';
 import SellerOrders from './pages/SellerOrders';
+import CustomerOrder from './pages/CustomerOrders';
 
 export default function ReactRoutes() {
   const [redirectToLogin, setRedirectToLogin] = useState(false);
@@ -65,6 +66,12 @@ export default function ReactRoutes() {
           path="/seller/orders"
           element={ <SellerOrders /> }
         />
+
+        <Route
+          path="/customer/orders/:id"
+          element={ <CustomerOrder /> }
+        />
+
       </Routes>
     </BrowserRouter>
   );
