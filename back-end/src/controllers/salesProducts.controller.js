@@ -13,7 +13,7 @@ const getSaleById = async (req, res) => {
 const { id } = req.params;
 const result = await salesProductsService.getSaleById(id);
  if (!result) {
-   const e = new Error('Sale does not exist');
+   const e = new Error('Order does not exist');
    e.name = 'NotFoundError';
    throw e;
  }
