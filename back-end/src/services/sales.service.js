@@ -38,7 +38,7 @@ const createSale = async (data, saleName) => {
 
     await SalesProduct.create({ saleId: result.saleId, productId: id, quantity });
   });
-  return result
+  return result;
 };
 
 const updateSale = async (id, data) => {

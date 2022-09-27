@@ -4,7 +4,7 @@ const getAll = async (role) => {
   if (role === 'admin') return [];
   const user = await users.findAll({
     where: { role },
-    attributes: ['name', 'id']
+    attributes: ['name', 'id'],
   });
   return user;
 };

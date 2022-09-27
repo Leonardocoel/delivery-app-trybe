@@ -1,7 +1,7 @@
 const { Sale } = require('../database/models');
 const { users } = require('../database/models');
 const { products } = require('../database/models');
-const { SalesProduct } = require('../database/models');
+// const { SalesProduct } = require('../database/models');
 
 const getAll = async () => {
   const sales = await Sale.findAll({
