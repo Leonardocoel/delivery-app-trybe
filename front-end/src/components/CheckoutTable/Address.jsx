@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomerContext from '../../context/CostumerContext';
 import { requestGet, requestPost, setToken } from '../../services/requests';
-import Header from '../Header';
 
 export default function Address() {
   const navigate = useNavigate();
