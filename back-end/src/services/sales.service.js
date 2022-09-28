@@ -25,7 +25,7 @@ const createSale = async (data, saleName) => {
     totalPrice,
     deliveryAddress,
     deliveryNumber,
-    status: 'Pending',
+    status: 'Pendente',
   });
   
   const result = { saleId: dataValues.id };
