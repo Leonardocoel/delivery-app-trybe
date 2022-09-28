@@ -6,7 +6,7 @@ import convertValue from '../../utils/convertValue';
 export default function ProductDetails() {
   const navigate = useNavigate();
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
   const { id } = useParams();
 
   useEffect(() => {
@@ -23,7 +23,8 @@ export default function ProductDetails() {
       setData(dat);
     };
     fetch();
-  }, [id]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>

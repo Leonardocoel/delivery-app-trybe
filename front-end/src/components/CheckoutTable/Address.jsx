@@ -33,17 +33,20 @@ export default function Address() {
   };
 
   const handleClick = async () => {
+    console.log('sellers: ', sellers);
     const body = {
-      sellerId: sellers.find((s) => s.name === finalSeller).id,
+      sellerId: finalSeller,
       totalPrice: total,
       deliveryAddress,
       deliveryNumber,
       productsArray: Object.entries(items),
     };
     const { saleId } = await requestPost('/customer/checkout', body);
+    console.log('saleId: ', saleId);
     navigate(`/customer/orders/${saleId}`);
   };
 
+  console.log(finalSeller);
   return (
     <div>
       <h1>Detalhes e Endereço da Entrega</h1>
@@ -54,12 +57,16 @@ export default function Address() {
             data-testid="customer_checkout__select-seller"
             name="vendedor"
             id="vendedor"
-            onChange={ ({ target: { value } }) => setFinalSeller(value) }
+            defaultValue="Fulana Pereira"
+            onChange={ ({ target }) => setFinalSeller(target.value) }
+            value={ finalSeller }
           >
-            <option value="select">Selecione</option>
-            {sellers.map(({ name }) => (
-              <option key={ name }>{name}</option>
-            ))}
+            {/* <option value="select">Selecione</option> */}
+            { sellers.length !== 0
+            && (sellers.map(({ name, id }) => (
+              <option value={ id } key={ name }>{ name }</option>
+            ))
+            ) }
           </select>
         </label>
         <label htmlFor="endereco">
