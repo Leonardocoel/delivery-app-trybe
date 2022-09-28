@@ -1,8 +1,19 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import PropType from 'prop-types';
+import { requestGet, setToken } from '../services/requests';
 
 export default function OrderCard({ order }) {
   const { id, status, saleDate, totalPrice, deliveryAddress } = order;
+  const navigate = useNavigate();
+  // const { id } = useParams();
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user && !user?.token) return navigate('/login');
+
+    setToken(user.token);
+  }, [navigate]);
   return (
     <Link to={ `/seller/orders/${id}` }>
       <div>
@@ -20,6 +31,9 @@ export default function OrderCard({ order }) {
           {deliveryAddress}
         </p>
       </div>
+
+      {' '}
+
     </Link>
   );
 }
