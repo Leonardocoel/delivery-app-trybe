@@ -38,7 +38,7 @@ module.exports = {
       deliveryAddress: {
         type: Sequelize.STRING(100),
         allowNull:false,
-        field: "delivery_addres"
+        field: "delivery_address"
       },
       deliveryNumber:{
         type: Sequelize.STRING(50),
@@ -48,6 +48,7 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
         field: "sale_date"
       },
       status: {

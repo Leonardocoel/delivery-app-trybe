@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import CustomerProvider from './context/CostumerProvider';
+import Checkout from './pages/Checkout';
 import Register from './pages/Register';
 import CustomerProducts from './pages/Customer';
 import Login from './pages/Login';
-import CustomerProvider from './context/CostumerProvider';
 import SellerOrders from './pages/SellerOrders';
+import CustomerOrder from './pages/CustomerOrders';
 
 export default function ReactRoutes() {
   const [redirectToLogin, setRedirectToLogin] = useState(false);
@@ -53,12 +55,23 @@ export default function ReactRoutes() {
         />
         <Route
           path="/customer/checkout"
+          element={
+            <CustomerProvider>
+              <Checkout />
+            </CustomerProvider>
+          }
         />
 
         <Route
           path="/seller/orders"
           element={ <SellerOrders /> }
         />
+
+        <Route
+          path="/customer/orders/:id"
+          element={ <CustomerOrder /> }
+        />
+
       </Routes>
     </BrowserRouter>
   );

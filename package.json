@@ -58,5 +58,10 @@
     "express-async-errors": "^3.1.1",
     "joi": "^17.6.0",
     "swagger-ui-express": "^4.5.0"
+  },
+  "peerDependencies":  {
+    "jest": "^27.5.1",
+    "jest-runner": "^27.5.1",
+    "jest-environment-node": "27.5.1"
   }
 }
