@@ -28,33 +28,30 @@ export default function ProductDetails() {
   return (
     <div>
       <h2>Detalhes do Pedido</h2>
-      {
-        data.length > 0 && (
-          <section>
-            <span
-              data-testid="customer_order_details__element-order-details-label-order-id"
-            >
-              {`pedido 00${data.id}`}
+      { data.length > 0 && (
+        <section>
+          <span
+            data-testid="customer_order_details__element-order-details-label-order-id"
+          >
+            {`pedido 00${data.id}`}
 
-            </span>
-            <span
-              data-testid={ `customer
-              _order_details__element-order-details-label-seller-name` }
-            >
-              {`P.vend: ${data.seller.name}`}
+          </span>
+          <span
+            data-testid="customer_order_details__element-order-details-label-seller-name"
+          >
+            {`P.vend: ${data.seller.name}`}
 
-            </span>
-            <span
-              data-testid="customer_order_details__element-order-details-label-order-date"
-            >
-              {data.sale_date}
+          </span>
+          <span
+            data-testid="customer_order_details__element-order-details-label-order-date"
+          >
+            {data.sale_date}
 
-            </span>
-            <span>{data.status}</span>
-            <button type="button">Marcar como entregue</button>
-          </section>
-        )
-      }
+          </span>
+          <span>{data.status}</span>
+          <button type="button">Marcar como entregue</button>
+        </section>
+      )}
       <table>
         <thead>
           <tr>

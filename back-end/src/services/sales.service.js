@@ -27,9 +27,8 @@ const createSale = async (data, saleName) => {
     deliveryNumber,
     status: 'Pending',
   });
-
+  
   const result = { saleId: dataValues.id };
-
   productsArray.map(async (product) => {
     const { id } = await products.findOne({ where: { name: product[0] } });
     await SalesProduct
