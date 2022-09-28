@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomerContext from '../../context/CostumerContext';
 import { requestGet, requestPost, setToken } from '../../services/requests';
+import Header from '../Header';
 
 export default function Address() {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ export default function Address() {
 
   const handleClick = async () => {
     const body = {
-      sellerId: sellers.find((s) => s.name === finalSeller).id,
+      sellerId: finalSeller,
       totalPrice: total,
       deliveryAddress,
       deliveryNumber,
@@ -57,8 +58,8 @@ export default function Address() {
             onChange={ ({ target: { value } }) => setFinalSeller(value) }
           >
             <option value="select">Selecione</option>
-            {sellers.map(({ name }) => (
-              <option key={ name }>{name}</option>
+            {sellers.map(({ name, id }) => (
+              <option key={ name } value={ id }>{name}</option>
             ))}
           </select>
         </label>
