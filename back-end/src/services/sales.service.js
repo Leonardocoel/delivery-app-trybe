@@ -1,3 +1,4 @@
+const sequelize = require('sequelize');
 const { Sale } = require('../database/models');
 const { products } = require('../database/models');
 const { SalesProduct } = require('../database/models');
@@ -17,24 +18,23 @@ const getSaleById = async (id) => {
 };
 
 const createSale = async (data, saleName) => {
-  const { dataValues: { id: userId } } = await users.findOne({ where: { name: saleName } });
-  const { sellerId, totalPrice, deliveryAddress, deliveryNumber, productsArray } = data;
-  const { dataValues } = await Sale.create({
-    userId,
-    sellerId,
-    totalPrice,
-    deliveryAddress,
-    deliveryNumber,
-    status: 'Pending',
-  });
-  
-  const result = { saleId: dataValues.id };
-  productsArray.map(async (product) => {
-    const { id } = await products.findOne({ where: { name: product[0] } });
-    await SalesProduct
-    .create({ saleId: result.saleId, productId: id, quantity: [product[1].quantity] });
-  });
-  return result;
+  const t = await sequelize.Transaction();
+  try {
+    const { dataValues: { id: userId } } = await users.findOne({ where: { name: saleName } });
+    const { productsArray } = data;
+    const { dataValues } = await Sale.create({ ...data, userId, status: 'Pending' }); 
+    const result = { saleId: dataValues.id };
+    productsArray.map(async (product) => {
+      const { id } = await products.findOne({ where: { name: product[0] } });
+      await SalesProduct
+      .create({ saleId: result.saleId, productId: id, quantity: [product[1].quantity] });
+    });
+    await t.commit();
+    return result;
+} catch (e) {
+  await t.rollback();
+  throw e;
+}
 };
 
 const updateSale = async (id, data) => {
@@ -48,20 +48,9 @@ const updateSale = async (id, data) => {
   return resultUpdated;
 };
 
-const deleteSaleById = async (id) => {
-  const sale = await getSaleById(id);
-  if (!sale) {
-    const e = new Error('Sale does not exist');
-    e.name = 'NotFoundError';
-    throw e;
-  }
-  return Sale.destroy({ where: { id: [id] } });  
-};
-
 module.exports = {
   getAll,
   getSaleById,
   createSale,
   updateSale,
-  deleteSaleById,
 };

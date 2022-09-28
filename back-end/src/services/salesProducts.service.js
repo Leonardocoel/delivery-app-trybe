@@ -44,19 +44,19 @@ const getSaleById = async (id) => {
     return sales;
 };
 
-const updateSale = async (id, data) => {
+const patchSale = async (id) => {
   const result = await getSaleById(id);
   if (!result) {
     const e = new Error('Order does not exist');
     e.name = 'NotFoundError';
     throw e;
   }
-  const resultUpdated = result.update({ data });
+  const resultUpdated = result.update({ status: 'Entregue' }, { where: { id } });
   return resultUpdated;
 };
 
 module.exports = {
   getAll,
   getSaleById,
-  updateSale,
+  patchSale,
 };
