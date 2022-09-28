@@ -19,7 +19,6 @@ const getSaleById = async (id) => {
 const createSale = async (data, saleName) => {
   const { dataValues: { id: userId } } = await users.findOne({ where: { name: saleName } });
   const { sellerId, totalPrice, deliveryAddress, deliveryNumber, productsArray } = data;
-  console.log('CREATEEEEEEEEEEEEE NAME', saleName);
   const { dataValues } = await Sale.create({
     userId,
     sellerId,
@@ -28,15 +27,11 @@ const createSale = async (data, saleName) => {
     deliveryNumber,
     status: 'Pending',
   });
-
-  const result = {
-    saleId: dataValues.id,
-  };
-
+  const result = { saleId: dataValues.id };
   productsArray.map(async (product) => {
-    const { id } = await products.findOne({ where:  { name: product[0]}  });
-
-    await SalesProduct.create({ saleId: result.saleId, productId: id, quantity: [product[1].quantity] });
+    const { id } = await products.findOne({ where: { name: product[0] } });
+    await SalesProduct
+    .create({ saleId: result.saleId, productId: id, quantity: [product[1].quantity] });
   });
   return result;
 };
