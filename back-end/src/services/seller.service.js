@@ -4,10 +4,8 @@ const { Sale } = require('../database/models');
 // const passwordEncryption = require('../utils/cryptography.utilities');
 
 const getAll = async () => {
-  const order = await Sale.findAll({
-    
-      attributes: { exclude: ['userId']}
-  
+  const order = await Sale.findAll({    
+      attributes: { exclude: ['userId'] },  
   });
   return order;
 };
@@ -42,12 +40,12 @@ const updateOrder = async (id, data) => {
     e.name = 'NotFoundError';
     throw e;
   }
-  const resultUpdated = result.update({ data });
+  const resultUpdated = order.update({ data });
   return resultUpdated;
 };
 
 const deleteOrderById = async (id) => {
-  const order = await getUserById(id);
+  const order = await getOrderById(id);
   if (!order) {
     const e = new Error('User does not exist');
     e.name = 'NotFoundError';

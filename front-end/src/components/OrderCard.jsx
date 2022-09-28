@@ -1,7 +1,7 @@
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import PropType from 'prop-types';
-import { requestGet, setToken } from '../services/requests';
+import { setToken } from '../services/requests';
 
 export default function OrderCard({ order }) {
   const { id, status, saleDate, totalPrice, deliveryAddress } = order;
