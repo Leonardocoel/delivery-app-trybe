@@ -43,8 +43,19 @@ const verifyAccessPrivileges = (req, _res, next) => {
   next();
 };
 
+const verifySeller = (req, _res, next) => {
+  const { user } = req;
+
+  if (user.role !== 'seller') {
+    const e = new Error('Access forbidden');
+    e.name = 'Unauthorized';
+    throw e;
+  }
+  next();
+};
 module.exports = {
   createToken,
   verifyToken,
   verifyAccessPrivileges,
+  verifySeller,
 };

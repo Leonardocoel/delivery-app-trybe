@@ -94,7 +94,7 @@ export default function OrderDetails() {
             </tbody>
           </table>
           <p
-            data-testid={ `${ID_BASE}element-order-total-price` }
+            data-testid={ `${ID_BASE}element-order-total-prices` }
           >
             {`Total: R$ ${order.totalPrice.toFixed(2).replace('.', ',')}`}
 

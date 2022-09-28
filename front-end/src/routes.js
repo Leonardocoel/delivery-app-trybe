@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import CustomerProvider from './context/CostumerProvider';
+import CustomerOrder from './pages/CustomerOrders';
+import Checkout from './pages/Checkout';
 import Register from './pages/Register';
 import CustomerProducts from './pages/Customer';
 import Login from './pages/Login';
-import CustomerProvider from './context/CostumerProvider';
 import SellerOrders from './pages/SellerOrders';
 import OrderDetails from './pages/OrderDetails';
 
@@ -54,6 +56,15 @@ export default function ReactRoutes() {
         />
         <Route
           path="/customer/checkout"
+          element={
+            <CustomerProvider>
+              <Checkout />
+            </CustomerProvider>
+          }
+        />
+        <Route
+          path="/customer/orders/:id"
+          element={ <CustomerOrder /> }
         />
 
         <Route
@@ -65,6 +76,7 @@ export default function ReactRoutes() {
           element={ <OrderDetails /> }
         />
       </Routes>
+
     </BrowserRouter>
   );
 }

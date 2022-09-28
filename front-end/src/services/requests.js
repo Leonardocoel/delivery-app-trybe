@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { HOME_URL } from '../utils/urls';
 
 const api = axios.create({
-  baseURL: HOME_URL,
+  baseURL: 'http://localhost:3001',
 });
 
 export const setToken = (token) => {
