@@ -19,6 +19,7 @@ export default function ProductDetails() {
   useEffect(() => {
     const fetch = async () => {
       const dat = await requestGet(`/customer/orders/${id}`);
+      console.log('data: ', dat);
       setData(dat);
     };
     fetch();

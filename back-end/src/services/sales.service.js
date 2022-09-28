@@ -6,7 +6,7 @@ const { users } = require('../database/models');
 const getAll = async () => {
   const result = await Sale.findAll();
   return result;
-};
+  };
 
 const getSaleById = async (id) => {
   const user = await Sale.findOne(
@@ -27,6 +27,7 @@ const createSale = async (data, saleName) => {
     deliveryNumber,
     status: 'Pending',
   });
+  
   const result = { saleId: dataValues.id };
   productsArray.map(async (product) => {
     const { id } = await products.findOne({ where: { name: product[0] } });

@@ -5,6 +5,7 @@ const swaggerUi = require('swagger-ui-express');
 
 const authRouter = require('../router/auth.router');
 const registerRouter = require('../router/register.router');
+const sellerRouter = require('../router/seller.router');
 const productsRouter = require('../router/products.router');
 const salesRouter = require('../router/sales.router');
 const SalesProductsRouter = require('../router/salesProducts.router');
@@ -26,6 +27,7 @@ app.use('/customer/products', productsRouter);
 app.use('/customer/checkout', salesRouter);
 app.use('/customer/orders', SalesProductsRouter);
 app.use('/admin/manage', adminRouter);
+app.use('/seller/orders', sellerRouter);
 app.use('/users', userRouter);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.get('/coffee', (_req, res) => res.status(418).end());
