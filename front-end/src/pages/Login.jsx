@@ -14,6 +14,14 @@ export default function Login() {
     setIsDisabled(!isValid);
   }, [email, password]);
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (user?.role === 'seller') return navigate('/seller/orders');
+    if (user?.role === 'admin') return navigate('/admin/manage');
+    if (user?.role === 'customer') return navigate('/customer/products');
+  }, [navigate]);
+
   const handleChange = ({ target: { value, name } }) => {
     setCredentials((prevCredentials) => ({ ...prevCredentials, [name]: value }));
   };
