@@ -1,4 +1,3 @@
-const jwt = require('jsonwebtoken');
 const salesService = require('../services/sales.service');
 
 const getAll = async (req, res, next) => {
@@ -22,9 +21,7 @@ return res.status(200).json(result);
 };
 
 const createSale = async (req, res) => {
-  const token = req.headers.authorization;
-  const user = jwt.decode(token);
-  const result = await salesService.createSale(req.body, user.data.name);
+  const result = await salesService.createSale(req.body);
   return res.status(201).json(result);
   };
 

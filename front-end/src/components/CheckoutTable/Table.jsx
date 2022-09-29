@@ -5,6 +5,7 @@ import convertValue from '../../utils/convertValue';
 export default function Table() {
   const { cartState, cartDispatch } = useContext(CostumerContext);
   const [total, items] = cartState;
+
   return (
     <>
       <table>
