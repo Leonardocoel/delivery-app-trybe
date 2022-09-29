@@ -17,20 +17,14 @@ export default function ProductDetails() {
     setToken(user.token);
   }, [navigate]);
 
-  // const getOrder = useCallback(async () => {
-  //   const orderById = await requestGet(`/customer/orders/${id}`);
-  //   setOrder(orderById);
-  // }, [id]);
-
-  // useEffect(() => {
-  //   getOrder();
-  // }, [getOrder]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async () => {
+  const getOrder = useCallback(async () => {
     const orderById = await requestGet(`/customer/orders/${id}`);
     setOrder(orderById);
   }, [id]);
+
+  useEffect(() => {
+    getOrder();
+  }, [getOrder]);
 
   return (
     Object.values(order).length > 0 && (
