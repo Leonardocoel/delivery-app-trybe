@@ -63,6 +63,7 @@ export default function Address() {
             { sellers.map(({ name, id }) => (
               <option value={ id } key={ name }>{ name }</option>
             )) }
+
           </select>
         </label>
         <label htmlFor="endereco">
