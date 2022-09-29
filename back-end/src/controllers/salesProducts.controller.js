@@ -20,9 +20,9 @@ const result = await salesProductsService.getSaleById(id);
 return res.status(200).json(result);
 };
 
-const updateSale = async (req, res) => {
+const patchSale = async (req, res) => {
   const { id } = req.params;
-  const result = await salesProductsService.updateSale(Number(id), req.body);
+  const result = await salesProductsService.patchSale(Number(id));
   if (!result) {
     const e = new Error('Conflict');
     e.name = 'Conflict';
@@ -34,5 +34,5 @@ const updateSale = async (req, res) => {
     module.exports = {
       getAll,
       getSaleById,
-      updateSale,
+      patchSale,
     };

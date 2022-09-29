@@ -6,12 +6,12 @@ import { requestGet, requestPost, setToken } from '../../services/requests';
 export default function Address() {
   const navigate = useNavigate();
   const { cartState } = useContext(CustomerContext);
-  const [total, items] = cartState;
+  const [totalPrice, items] = cartState;
   const [{ deliveryAddress, deliveryNumber }, setAddress] = useState(
     { deliveryAddress: '', deliveryNumber: '' },
   );
-  const [sellers, setSeller] = useState([]);
-  const [finalSeller, setFinalSeller] = useState('');
+  const [sellers, setSellers] = useState([]);
+  const [sellerId, setSellerId] = useState(2);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -21,11 +21,11 @@ export default function Address() {
   }, [navigate]);
 
   useEffect(() => {
-    const req = async () => {
+    const getSellers = async () => {
       const seller = await requestGet('/users/seller');
-      setSeller(seller);
+      setSellers(seller);
     };
-    req();
+    getSellers();
   }, []);
 
   const handleAddress = ({ target: { value, name } }) => {
@@ -33,20 +33,22 @@ export default function Address() {
   };
 
   const handleClick = async () => {
-    console.log('sellers: ', sellers);
+    const userName = JSON.parse(localStorage.getItem('user')).name;
     const body = {
-      sellerId: finalSeller,
-      totalPrice: total,
+      userName,
+      sellerId,
+      totalPrice,
       deliveryAddress,
       deliveryNumber,
-      productsArray: Object.entries(items),
+      productsArray: Object.values(items)
+        .map(({ id, quantity }) => ({ productId: id, quantity })),
     };
+
     const { saleId } = await requestPost('/customer/checkout', body);
     console.log('saleId: ', saleId);
     navigate(`/customer/orders/${saleId}`);
   };
 
-  console.log(finalSeller);
   return (
     <div>
       <h1>Detalhes e Endereço da Entrega</h1>
@@ -57,16 +59,12 @@ export default function Address() {
             data-testid="customer_checkout__select-seller"
             name="vendedor"
             id="vendedor"
-            defaultValue="Fulana Pereira"
-            onChange={ ({ target }) => setFinalSeller(target.value) }
-            value={ finalSeller }
+            onChange={ ({ target: { value } }) => setSellerId(value) }
           >
-            {/* <option value="select">Selecione</option> */}
-            { sellers.length !== 0
-            && (sellers.map(({ name, id }) => (
+            { sellers.map(({ name, id }) => (
               <option value={ id } key={ name }>{ name }</option>
-            ))
-            ) }
+            )) }
+
           </select>
         </label>
         <label htmlFor="endereco">

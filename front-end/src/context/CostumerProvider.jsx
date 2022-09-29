@@ -15,7 +15,7 @@ const SaveCart = (cart) => {
   return [total, cart];
 };
 
-const itemHandler = ([, state], { type, payload: { name, price, quantity } }) => {
+const itemHandler = ([, state], { type, payload: { name, quantity, ...info } }) => {
   const prevQty = state[name]?.quantity;
 
   const cases = {
@@ -24,7 +24,7 @@ const itemHandler = ([, state], { type, payload: { name, price, quantity } }) =>
     input: (quantity > 0) ? quantity : 0,
   };
 
-  const cart = { ...state, [name]: { price, quantity: cases[type] } };
+  const cart = { ...state, [name]: { ...info, quantity: cases[type] } };
 
   return SaveCart(cart);
 };

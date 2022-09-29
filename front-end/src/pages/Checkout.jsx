@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { setToken } from '../services/requests';
 import Address from '../components/CheckoutTable/Address';
 import Table from '../components/CheckoutTable/Table';
+import Header from '../components/Header';
 
 export default function Checkout() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ export default function Checkout() {
 
   return (
     <div>
+      <Header />
       <Table />
       <Address />
     </div>

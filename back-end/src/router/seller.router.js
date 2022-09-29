@@ -7,8 +7,6 @@ router.use(verifyToken);
 router.use(verifySeller);
 router.get('/:id', sellerController.getOrderById);
 router.get('/', sellerController.getAll);
-// router.post('/', adminController.createUser);
-router.put('/:id', sellerController.updateOrder);
-router.delete('/:id', sellerController.deleteOrderById);
+router.patch('/:id', sellerController.patchOrder);
 
 module.exports = router;

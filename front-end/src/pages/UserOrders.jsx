@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import OrderCard from '../components/OrderCard';
+import UserOrderCard from '../components/OrderCard';
 import Header from '../components/Header';
 import { requestGet, setToken } from '../services/requests';
 
-export default function SellerOrders() {
+export default function UserOrders() {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
 
@@ -16,7 +16,7 @@ export default function SellerOrders() {
 
   useEffect(() => {
     const requestOrders = async () => {
-      const sellerOrders = await requestGet('/seller/orders');
+      const sellerOrders = await requestGet('/customer/orders');
 
       setOrders(sellerOrders);
     };
@@ -34,7 +34,7 @@ export default function SellerOrders() {
             {' '}
             {
               orders
-                .map((order) => <OrderCard key={ order.id } order={ order } />)
+                .map((order) => <UserOrderCard key={ order.id } order={ order } />)
             }
           </div>
         )}

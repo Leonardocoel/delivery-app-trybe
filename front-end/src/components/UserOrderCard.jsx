@@ -8,7 +8,7 @@ import convertValue from '../utils/convertValue';
 
 export default function OrderCard({ order }) {
   const { id, status, sale_date: saleDate,
-    totalPrice, deliveryAddress, deliveryNumber } = order;
+    totalPrice } = order;
   const navigate = useNavigate();
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -16,22 +16,19 @@ export default function OrderCard({ order }) {
     setToken(user.token);
   }, [navigate]);
   return (
-    <Link to={ `/customer/orders/${id}` }>
+    <Link to={ `/seller/orders/${id}` }>
       <div>
-        <p data-testid={ `customer_orders__element-order-id-${id}` }>
+        <p data-testid={ `seller_orders__element-order-id-${id}` }>
           {`Pedido 000${id}`}
         </p>
-        <p data-testid={ `customer_orders__element-delivery-status-${id}` }>
+        <p data-testid={ `seller_orders__element-delivery-status-${id}` }>
           {status}
         </p>
-        <p data-testid={ `customer_orders__element-order-date-${id}` }>
+        <p data-testid={ `seller_orders__element-order-date-${id}` }>
           {moment(saleDate).format('DD/MM/YYYY')}
         </p>
-        <p data-testid={ `customer_orders__element-card-price-${id}` }>
+        <p data-testid={ `seller_orders__element-card-price-${id}` }>
           {convertValue(totalPrice)}
-        </p>
-        <p data-testid={ `customer_orders__element-card-address-${id}` }>
-          {`${deliveryAddress}, ${deliveryNumber}`}
         </p>
       </div>
       {' '}
