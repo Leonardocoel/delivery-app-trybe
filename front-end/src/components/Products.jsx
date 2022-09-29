@@ -48,7 +48,7 @@ export default function Products() {
               type="button"
               data-testid={ `customer_products__button-card-rm-item-${id}` }
               onClick={ () => cartDispatch(
-                { type: 'decrement', payload: { name, price } },
+                { type: 'decrement', payload: { name, price, id } },
               ) }
             >
               -
@@ -59,14 +59,15 @@ export default function Products() {
               value={ items[name]?.quantity || '0' }
               data-testid={ `customer_products__input-card-quantity-${id}` }
               onChange={ ({ target: { value } }) => cartDispatch(
-                { type: 'input', payload: { name, price, quantity: parseFloat(value) } },
+                { type: 'input',
+                  payload: { name, price, id, quantity: parseFloat(value) } },
               ) }
             />
             <button
               type="button"
               data-testid={ `customer_products__button-card-add-item-${id}` }
               onClick={ () => cartDispatch(
-                { type: 'increment', payload: { name, price } },
+                { type: 'increment', payload: { name, price, id } },
               ) }
             >
               +

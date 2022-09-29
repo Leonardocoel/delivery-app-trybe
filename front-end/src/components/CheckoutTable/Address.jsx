@@ -6,12 +6,12 @@ import { requestGet, requestPost, setToken } from '../../services/requests';
 export default function Address() {
   const navigate = useNavigate();
   const { cartState } = useContext(CustomerContext);
-  const [total, items] = cartState;
+  const [totalPrice, items] = cartState;
   const [{ deliveryAddress, deliveryNumber }, setAddress] = useState(
     { deliveryAddress: '', deliveryNumber: '' },
   );
-  const [sellers, setSeller] = useState([]);
-  const [finalSeller, setFinalSeller] = useState('');
+  const [sellers, setSellers] = useState([]);
+  const [sellerId, setSeller] = useState(2);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -21,11 +21,11 @@ export default function Address() {
   }, [navigate]);
 
   useEffect(() => {
-    const req = async () => {
+    const getSellers = async () => {
       const seller = await requestGet('/users/seller');
-      setSeller(seller);
+      setSellers(seller);
     };
-    req();
+    getSellers();
   }, []);
 
   const handleAddress = ({ target: { value, name } }) => {
@@ -33,13 +33,17 @@ export default function Address() {
   };
 
   const handleClick = async () => {
+    const userName = JSON.parse(localStorage.getItem('user')).name;
     const body = {
-      sellerId: finalSeller,
-      totalPrice: total,
+      userName,
+      sellerId,
+      totalPrice,
       deliveryAddress,
       deliveryNumber,
-      productsArray: Object.entries(items),
+      productsArray: Object.values(items)
+        .map(({ id, quantity }) => ({ productId: id, quantity })),
     };
+
     const { saleId } = await requestPost('/customer/checkout', body);
     navigate(`/customer/orders/${saleId}`);
   };
@@ -54,12 +58,12 @@ export default function Address() {
             data-testid="customer_checkout__select-seller"
             name="vendedor"
             id="vendedor"
-            onChange={ ({ target: { value } }) => setFinalSeller(value) }
+            onChange={ ({ target: { value } }) => setSeller(value) }
           >
-            <option value="select">Selecione</option>
-            {sellers.map(({ name, id }) => (
-              <option key={ name } value={ id }>{name}</option>
-            ))}
+            { sellers.map(({ name, id }) => (
+              <option value={ id } key={ name }>{ name }</option>
+            )) }
+
           </select>
         </label>
         <label htmlFor="endereco">
