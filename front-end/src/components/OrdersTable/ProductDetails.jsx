@@ -1,5 +1,5 @@
 import moment from 'moment';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { requestGet, setToken } from '../../services/requests';
 import convertValue from '../../utils/convertValue';
@@ -16,14 +16,21 @@ export default function ProductDetails() {
 
     setToken(user.token);
   }, [navigate]);
-  const getOrder = useCallback(async () => {
+
+  // const getOrder = useCallback(async () => {
+  //   const orderById = await requestGet(`/customer/orders/${id}`);
+  //   setOrder(orderById);
+  // }, [id]);
+
+  // useEffect(() => {
+  //   getOrder();
+  // }, [getOrder]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
     const orderById = await requestGet(`/customer/orders/${id}`);
     setOrder(orderById);
   }, [id]);
-
-  useEffect(() => {
-    getOrder();
-  }, [getOrder]);
 
   return (
     Object.values(order).length > 0 && (
