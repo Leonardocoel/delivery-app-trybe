@@ -11,7 +11,7 @@ export default function Address() {
     { deliveryAddress: '', deliveryNumber: '' },
   );
   const [sellers, setSellers] = useState([]);
-  const [sellerId, setSeller] = useState(2);
+  const [sellerId, setSellerId] = useState(2);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -58,7 +58,7 @@ export default function Address() {
             data-testid="customer_checkout__select-seller"
             name="vendedor"
             id="vendedor"
-            onChange={ ({ target: { value } }) => setSeller(value) }
+            onChange={ ({ target: { value } }) => setSellerId(value) }
           >
             { sellers.map(({ name, id }) => (
               <option value={ id } key={ name }>{ name }</option>
