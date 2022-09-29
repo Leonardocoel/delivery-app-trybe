@@ -40,7 +40,6 @@ const createSale = async ({ userName, ...sales }) => {
   } catch (e) {
     console.log(e);
   }
-
 };
 
 const updateSale = async (id, data) => {
