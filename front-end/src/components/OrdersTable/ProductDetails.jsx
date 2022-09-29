@@ -21,6 +21,11 @@ export default function ProductDetails() {
     setOrder(orderById);
   }, [id]);
 
+  const getOrder = useCallback(async () => {
+    const orderById = await requestGet(`/customer/orders/${id}`);
+    setOrder(orderById);
+  }, [id]);
+
   useEffect(() => {
     getOrder();
   }, [getOrder]);
