@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import moment from 'moment';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { requestGet, setToken, requestPatch } from '../services/requests';
@@ -9,7 +10,7 @@ const ID_BASE = 'seller_order_details__';
 export default function OrderDetails() {
   const navigate = useNavigate();
   const [order, setOrder] = useState({ });
-  const [status, setStatus] = useState('Pendente');
+  const [status, setStatus] = useState('');
   const { id: idParams } = useParams();
   const EM_TRANSITO = 'Em Trânsito';
 
@@ -20,21 +21,17 @@ export default function OrderDetails() {
     setToken(user.token);
   }, [navigate]);
 
-  useEffect(() => {
-    const requestOrder = async () => {
-      const data = await requestGet(`/seller/orders/${idParams}`);
-      setOrder(data);
-      setStatus(data.status);
-    };
-    requestOrder();
+  const requestOrder = useCallback(async () => {
+    const data = await requestGet(`/seller/orders/${idParams}`);
+    setOrder(data);
+    setStatus(data.status);
   }, [idParams]);
 
   useEffect(() => {
-    // requestPatch(endpoint, status);
-  }, [status]);
+    requestOrder();
+  }, [requestOrder]);
 
   const handleClickCheck = async () => {
-    console.log('clicou');
     setStatus('Preparando');
     await requestPatch(`/seller/orders/${idParams}`, { message: 'Preparando' });
   };
@@ -55,7 +52,7 @@ export default function OrderDetails() {
               {`PEDIDO ${order.id}`}
             </p>
             <p data-testid={ `${ID_BASE}element-order-details-label-order-date` }>
-              {new Date(order.sale_date).toLocaleDateString()}
+              {moment(order.sale_date).format('DD/MM/YYYY')}
             </p>
             <p
               data-testid={ `${ID_BASE}element-order-details-label-delivery-status` }

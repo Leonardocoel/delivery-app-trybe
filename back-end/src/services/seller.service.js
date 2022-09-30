@@ -35,7 +35,6 @@ const getOrderById = async (id) => {
 };
 
 const patchOrder = async (id, data) => {
-  console.log(data);
   const order = await getOrderById(id);
   if (!order) {
     const e = new Error('Order does not exist');

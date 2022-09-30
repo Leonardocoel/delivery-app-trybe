@@ -1,14 +1,15 @@
 import moment from 'moment';
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { requestGet, setToken } from '../../services/requests';
+import { requestGet, setToken, requestPatch } from '../../services/requests';
 import convertValue from '../../utils/convertValue';
 
 export default function ProductDetails() {
   const navigate = useNavigate();
   const [order, setOrder] = useState({ });
+  const [status, setStatus] = useState('Pendente');
   const { id } = useParams();
-  const { seller, status, totalPrice, products } = order;
+  const { seller, totalPrice, products } = order;
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -20,11 +21,17 @@ export default function ProductDetails() {
   const getOrder = useCallback(async () => {
     const orderById = await requestGet(`/customer/orders/${id}`);
     setOrder(orderById);
-  }, [id]);
+    setStatus(order.status);
+  }, [id, order.status]);
 
   useEffect(() => {
     getOrder();
   }, [getOrder]);
+
+  const handleClick = async () => {
+    await requestPatch(`/customer/checkout/${id}`, { message: 'Entregue' });
+    setStatus('Entregue');
+  };
 
   return (
     Object.values(order).length > 0 && (
@@ -57,7 +64,8 @@ export default function ProductDetails() {
           <button
             type="button"
             data-testid="customer_order_details__button-delivery-check"
-            disabled
+            disabled={ status !== 'Em Trânsito' }
+            onClick={ () => handleClick() }
           >
             Marcar como entregue
 

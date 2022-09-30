@@ -7,9 +7,8 @@ import { setToken } from '../services/requests';
 import convertValue from '../utils/convertValue';
 
 export default function OrderCard({ order }) {
-  const { id, status, sale_date: saleDate,
-    totalPrice } = order;
   const navigate = useNavigate();
+  const { id, status, sale_date: saleDate, totalPrice } = order;
   const link = Link;
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
