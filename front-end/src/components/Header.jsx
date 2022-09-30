@@ -28,7 +28,7 @@ export default function Header() {
           Pedidos
         </button>
       ) : (
-        <div>
+        <>
           <button
             type="button"
             onClick={ () => navigate('/customer/products') }
@@ -44,7 +44,7 @@ export default function Header() {
           >
             Meus Pedidos
           </button>
-        </div>
+        </>
       ) }
       <button
         type="button"
