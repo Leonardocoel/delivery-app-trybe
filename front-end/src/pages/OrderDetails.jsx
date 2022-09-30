@@ -27,11 +27,12 @@ export default function OrderDetails() {
       setStatus(data.status);
     };
     requestOrder();
-  }, [idParams]);
+  }, [idParams, status]);
 
-  useEffect(() => {
-    // requestPatch(endpoint, status);
-  }, [status]);
+  // useEffect(() => {
+  //   const data = await requestGet(`/seller/orders/${idParams}`);
+  //   setOrder(data);
+  //   setStatus(data.status);  }, [status]);
 
   const handleClickCheck = async () => {
     console.log('clicou');

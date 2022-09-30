@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { requestPost, setToken } from '../services/requests';
 import validationsRegister from '../utils/validationsRegister';
+import '../CSS/Register.css';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -36,9 +37,10 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <div className="Register_component">
       <form onSubmit={ (e) => handleSubmit(e) }>
         <input
+          className="Register_input_email_component"
           data-testid="common_register__input-email"
           type="email"
           name="email"
@@ -48,6 +50,7 @@ export default function Login() {
           onChange={ (e) => handleChange(e) }
         />
         <input
+          className="Register_input_password_component"
           data-testid="common_register__input-password"
           type="password"
           name="password"
@@ -57,6 +60,7 @@ export default function Login() {
           onChange={ (e) => handleChange(e) }
         />
         <input
+          className="Register_input_name_component"
           data-testid="common_register__input-name"
           type="name"
           name="name"
@@ -67,6 +71,7 @@ export default function Login() {
         />
 
         <button
+          className="Register_button_component"
           data-testid="common_register__button-register"
           disabled={ isDisabled }
           type="submit"

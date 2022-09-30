@@ -1,0 +1,36 @@
+.Register_component {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25%;
+}
+.Register_form_component{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.Register_input_email_component{
+    display: flex;
+}
+
+.Register_input_password_component{
+    display: flex;
+}
+
+.Register_button_component{
+    display: flex;
+
+}
+
+.Register_button_component{
+    display: flex;
+    text-align: justify;
+    width: 100% ;
+
+}
+
+.background {
+    background-image: url('https://i.pinimg.com/originals/fa/c5/da/fac5da92bfd44d02013076760996c6ff.jpgurl');
+    width: 100%;
+  }

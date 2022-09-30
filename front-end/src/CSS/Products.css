@@ -1,0 +1,64 @@
+/* .cardss {
+    border-radius: 15%;
+    box-shadow: 1px;
+    left: 10px;
+    width: 360px;
+    margin: 10px;
+  } */
+
+  /* .cards-box {
+    display: flex;
+    overflow: hidden;
+    overflow-x: scroll;
+    width: 360px;
+  } */
+
+  .card {
+    border: 2px solid;
+    border-radius: 5px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    margin: 5px;
+    overflow:-moz-hidden-unscrollable;
+    /* width: 50%; */
+  }
+
+  .cards  {
+    bottom: 20%;
+    display: flex;
+    flex-flow: row nowrap;
+    margin-bottom: 50px;
+    width: 200%;
+  }
+
+  .card_image{
+    width: 50%;
+    height: 35%;
+  }
+
+  .subtract_quantity_button{
+    background-color: rgb(248, 212, 218);
+    border-radius: 25%;
+    color: rgba(82, 73, 82, 0.205);
+    text-align: center;
+  }
+  .add_quantity_button{
+    background-color: rgb(248, 212, 218);
+    border-radius: 25%;
+    color: rgba(82, 73, 82, 0.205);
+    text-align: center;
+  }
+
+  .quantity_input{
+    width: 20px;
+  }
+
+  .quantity_input_and_buttons{
+    bottom: 0px;
+    position: relative;
+    left: 25px;
+    display: flex;
+    flex-direction: row;
+  }

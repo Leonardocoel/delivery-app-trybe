@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { requestGet, setToken } from '../services/requests';
 import CustomerContext from '../context/CostumerContext';
 import convertValue from '../utils/convertValue';
+import '../CSS/Products.css';
 
 export default function Products() {
   const navigate = useNavigate();
@@ -27,9 +28,9 @@ export default function Products() {
   }, []);
 
   return (
-    <div>
+    <div className="cards">
       { products.map(({ id, name, price, urlImage }) => (
-        <div key={ name }>
+        <div className="card" key={ name }>
           <p data-testid={ `customer_products__element-card-title-${id}` }>
             {name}
 
@@ -39,12 +40,14 @@ export default function Products() {
 
           </p>
           <img
+            className="card_image"
             data-testid={ `customer_products__img-card-bg-image-${id}` }
             src={ urlImage }
             alt={ name }
           />
-          <div>
+          <div className="quantity_input_and_buttons">
             <button
+              className="subtract_quantity_button"
               type="button"
               data-testid={ `customer_products__button-card-rm-item-${id}` }
               onClick={ () => cartDispatch(
@@ -55,6 +58,7 @@ export default function Products() {
 
             </button>
             <input
+              className="quantity_input"
               name="quantity"
               value={ items[name]?.quantity || '0' }
               data-testid={ `customer_products__input-card-quantity-${id}` }
@@ -64,6 +68,7 @@ export default function Products() {
               ) }
             />
             <button
+              className="add_quantity_button"
               type="button"
               data-testid={ `customer_products__button-card-add-item-${id}` }
               onClick={ () => cartDispatch(
