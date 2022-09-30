@@ -30,7 +30,8 @@ const getOrderById = async (id) => {
       },
     },
   ],
-  });
+  })
+  console.log('sale', id);
     return sales;
 };
 

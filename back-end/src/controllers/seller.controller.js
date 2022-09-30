@@ -12,6 +12,7 @@ const getAll = async (req, res, next) => {
 const getOrderById = async (req, res) => {
   const { id } = req.params;
   const result = await sellerService.getOrderById(id);
+  console.log(result);
     if (!result) {
       const e = new Error('Order does not exist');
       e.name = 'NotFoundError';

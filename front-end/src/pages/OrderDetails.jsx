@@ -65,7 +65,7 @@ export default function OrderDetails() {
             <button
               type="button"
               data-testid="seller_order_details__button-preparing-check"
-              disabled={ status !== EM_TRANSITO }
+              disabled={ status !== 'Pendente' }
               onClick={ () => handleClickCheck() }
             >
               PREPARAR PEDIDO
