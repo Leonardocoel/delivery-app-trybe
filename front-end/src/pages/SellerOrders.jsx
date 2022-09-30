@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import OrderCard from '../components/OrderCard';
+import SellerOrderCard from '../components/SellerOrderCard';
 import Header from '../components/Header';
 import { requestGet, setToken } from '../services/requests';
 
@@ -34,7 +34,7 @@ export default function SellerOrders() {
             {' '}
             {
               orders
-                .map((order) => <OrderCard key={ order.id } order={ order } />)
+                .map((order) => <SellerOrderCard key={ order.id } order={ order } />)
             }
           </div>
         )}

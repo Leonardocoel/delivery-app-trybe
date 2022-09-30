@@ -10,27 +10,28 @@ export default function OrderCard({ order }) {
   const { id, status, sale_date: saleDate,
     totalPrice, deliveryAddress, deliveryNumber } = order;
   const navigate = useNavigate();
+  const link = Link;
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (!user && !user?.token) return navigate('/login');
     setToken(user.token);
-  }, [navigate]);
+  }, [navigate, link]);
   return (
-    <Link to={ `/customer/orders/${id}` }>
+    <Link to={ `/seller/orders/${id}` }>
       <div>
-        <p data-testid={ `customer_orders__element-order-id-${id}` }>
+        <p data-testid={ `seller_orders__element-order-id-${id}` }>
           {`Pedido 000${id}`}
         </p>
-        <p data-testid={ `customer_orders__element-delivery-status-${id}` }>
+        <p data-testid={ `seller_orders__element-delivery-status-${id}` }>
           {status}
         </p>
-        <p data-testid={ `customer_orders__element-order-date-${id}` }>
+        <p data-testid={ `seller_orders__element-order-date-${id}` }>
           {moment(saleDate).format('DD/MM/YYYY')}
         </p>
-        <p data-testid={ `customer_orders__element-card-price-${id}` }>
+        <p data-testid={ `seller_orders__element-card-price-${id}` }>
           {convertValue(totalPrice)}
         </p>
-        <p data-testid={ `customer_orders__element-card-address-${id}` }>
+        <p data-testid={ `seller_orders__element-card-address-${id}` }>
           {`${deliveryAddress}, ${deliveryNumber}`}
         </p>
       </div>

@@ -45,7 +45,6 @@ export default function Address() {
     };
 
     const { saleId } = await requestPost('/customer/checkout', body);
-    console.log('saleId: ', saleId);
     navigate(`/customer/orders/${saleId}`);
   };
 

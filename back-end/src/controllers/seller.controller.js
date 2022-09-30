@@ -22,7 +22,8 @@ const getOrderById = async (req, res) => {
 
   const patchOrder = async (req, res) => {
     const { id } = req.params;
-    const result = await sellerService.patchOrder(Number(id), req.body);
+    const { message } = req.body
+    const result = await sellerService.patchOrder(Number(id), message);
     if (!result) {
       const e = new Error('Conflict');
       e.name = 'Conflict';

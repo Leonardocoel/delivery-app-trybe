@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import UserOrderCard from '../components/OrderCard';
+import UserOrderCard from '../components/UserOrderCard';
 import Header from '../components/Header';
 import { requestGet, setToken } from '../services/requests';
 
