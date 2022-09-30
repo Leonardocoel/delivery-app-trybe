@@ -18,4 +18,9 @@ export const requestGet = async (endpoint) => {
   return data;
 };
 
+export const requestPatch = async (endpoint, payload) => {
+  const { data } = await api.patch(endpoint, payload);
+  return data;
+};
+
 export default api;

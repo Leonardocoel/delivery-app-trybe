@@ -1,42 +1,58 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import moment from 'moment';
+import { useEffect, useState, useCallback } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import { requestGet } from '../services/requests';
+import { requestGet, setToken, requestPatch } from '../services/requests';
 import convertValue from '../utils/convertValue';
 
 const ID_BASE = 'seller_order_details__';
 
 export default function OrderDetails() {
-  const [order, setOrder] = useState();
-  const [status, setStatus] = useState('Pendente');
+  const navigate = useNavigate();
+  const [order, setOrder] = useState({ });
+  const [status, setStatus] = useState('');
   const { id: idParams } = useParams();
+  const EM_TRANSITO = 'Em Trânsito';
 
   useEffect(() => {
-    const requestOrder = async () => {
-      const data = await requestGet(`/customer/orders/${idParams}`);
-      console.log(data);
-      setOrder(data);
-      setStatus(data.status);
-    };
-    requestOrder();
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user && !user?.token) return navigate('/login');
+
+    setToken(user.token);
+  }, [navigate]);
+
+  const requestOrder = useCallback(async () => {
+    const data = await requestGet(`/seller/orders/${idParams}`);
+    setOrder(data);
+    setStatus(data.status);
   }, [idParams]);
 
   useEffect(() => {
-    // requestPatch(endpoint, status);
-  }, [status]);
+    requestOrder();
+  }, [requestOrder]);
+
+  const handleClickCheck = async () => {
+    setStatus('Preparando');
+    await requestPatch(`/seller/orders/${idParams}`, { message: 'Preparando' });
+  };
+
+  const handleClickDispatch = async () => {
+    setStatus(EM_TRANSITO);
+    await requestPatch(`/seller/orders/${idParams}`, { message: 'Em Trânsito' });
+  };
 
   return (
     <main>
       <Header />
       <h1>Detalhe do pedido</h1>
-      {order && (
+      {Object.values(order).length > 0 && (
         <>
           <div>
             <p data-testid={ `${ID_BASE}element-order-details-label-order-id` }>
               {`PEDIDO ${order.id}`}
             </p>
             <p data-testid={ `${ID_BASE}element-order-details-label-order-date` }>
-              {new Date(order.sale_date).toLocaleDateString()}
+              {moment(order.sale_date).format('DD/MM/YYYY')}
             </p>
             <p
               data-testid={ `${ID_BASE}element-order-details-label-delivery-status` }
@@ -44,20 +60,23 @@ export default function OrderDetails() {
               {status}
             </p>
             <button
-              data-testid={ `${ID_BASE}button-preparing-check` }
               type="button"
+              data-testid="seller_order_details__button-preparing-check"
               disabled={ status !== 'Pendente' }
-              onClick={ () => setStatus('Preparando') }
+              onClick={ () => handleClickCheck() }
             >
-              Preparar pedido
+              PREPARAR PEDIDO
+
             </button>
             <button
-              data-testid={ `${ID_BASE}button-dispatch-check` }
               type="button"
+              data-testid="seller_order_details__button-dispatch-check"
               disabled={ status !== 'Preparando' }
-              onClick={ () => setStatus('Em Trânsito') }
+              onClick={ () => handleClickDispatch() }
+
             >
-              Saiu para entrega
+              SAIU PARA ENTREGA
+
             </button>
           </div>
           <table>

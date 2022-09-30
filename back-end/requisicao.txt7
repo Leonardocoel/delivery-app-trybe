@@ -20,3 +20,18 @@
     "deliveryNumber": ,
     "productsArray": []
 }
+
+  {
+	"email" : "fulana@deliveryapp.com",
+	"password": "fulana@123"	
+}
+
+{
+	"email" : "zebirita@email.com",
+	"password": "$#zebirita#$"	
+}
+
+{
+	"email" : "adm@deliveryapp.com",
+	"password": "--adm2@21!!--"	
+}

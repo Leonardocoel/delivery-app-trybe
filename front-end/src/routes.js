@@ -8,6 +8,7 @@ import CustomerProducts from './pages/Customer';
 import Login from './pages/Login';
 import SellerOrders from './pages/SellerOrders';
 import OrderDetails from './pages/OrderDetails';
+import UserOrders from './pages/UserOrders';
 
 export default function ReactRoutes() {
   const [redirectToLogin, setRedirectToLogin] = useState(false);
@@ -61,6 +62,10 @@ export default function ReactRoutes() {
               <Checkout />
             </CustomerProvider>
           }
+        />
+        <Route
+          path="/customer/orders"
+          element={ <UserOrders /> }
         />
         <Route
           path="/customer/orders/:id"

@@ -2,8 +2,8 @@ const sellerService = require('../services/seller.service');
 
 const getAll = async (req, res, next) => {
      try { 
-       const users = await sellerService.getAll();
-       return res.status(200).json({ users });
+       const orders = await sellerService.getAll();
+       return res.status(200).json(orders);
      } catch (error) {
        next(error);
      }
@@ -12,6 +12,7 @@ const getAll = async (req, res, next) => {
 const getOrderById = async (req, res) => {
   const { id } = req.params;
   const result = await sellerService.getOrderById(id);
+  console.log(result);
     if (!result) {
       const e = new Error('Order does not exist');
       e.name = 'NotFoundError';
@@ -22,7 +23,8 @@ const getOrderById = async (req, res) => {
 
   const patchOrder = async (req, res) => {
     const { id } = req.params;
-    const result = await sellerService.patchOrder(Number(id), req.body);
+    const { message } = req.body;
+    const result = await sellerService.patchOrder(Number(id), message);
     if (!result) {
       const e = new Error('Conflict');
       e.name = 'Conflict';
