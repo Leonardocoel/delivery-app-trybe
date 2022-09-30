@@ -2,7 +2,6 @@ const { Sale } = require('../database/models');
 const { users } = require('../database/models');
 const { products } = require('../database/models');
 
-
 // const { Op } = require('sequelize');
 // const { validateUserCreation } = require('../utils/user.validations');
 // const passwordEncryption = require('../utils/cryptography.utilities');
