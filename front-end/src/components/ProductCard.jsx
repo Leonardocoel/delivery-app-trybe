@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { requestGet, setToken } from '../services/requests';
-import CustomerContext from '../context/CostumerContext';
+import CustomerContext from '../context/CustomerContext';
 import convertValue from '../utils/convertValue';
 
-export default function Products() {
+export default function ProductCard() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const { cartState, cartDispatch } = useContext(CustomerContext);
@@ -19,9 +19,9 @@ export default function Products() {
 
   useEffect(() => {
     const getProducts = async () => {
-      const productsArr = await requestGet('/customer/products');
+      const response = await requestGet('/products');
 
-      setProducts(productsArr);
+      setProducts(response);
     };
     getProducts();
   }, []);

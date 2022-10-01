@@ -6,10 +6,10 @@ import convertValue from '../../utils/convertValue';
 
 const PAGE_ID = 'customer_order_details__';
 
-export default function ProductDetails() {
+export default function OrderDetails() {
   const navigate = useNavigate();
   const [order, setOrder] = useState({ });
-  const [status, setStatus] = useState('Pendente');
+  const [status, setStatus] = useState('');
   const { id } = useParams();
   const { seller, totalPrice, products } = order;
 
@@ -20,18 +20,18 @@ export default function ProductDetails() {
     setToken(user.token);
   }, [navigate]);
 
-  const getOrder = useCallback(async () => {
-    const orderById = await requestGet(`/customer/orders/${id}`);
+  const getOrders = useCallback(async () => {
+    const orderById = await requestGet(`/orders/${id}`);
     setOrder(orderById);
-    setStatus(order.status);
-  }, [id, order.status]);
+    setStatus(orderById.status);
+  }, [id]);
 
   useEffect(() => {
-    getOrder();
-  }, [getOrder]);
+    getOrders();
+  }, [getOrders]);
 
   const handleClick = async () => {
-    await requestPatch(`/customer/checkout/${id}`, { message: 'Entregue' });
+    await requestPatch(`orders/${id}`, { message: 'Entregue' });
     setStatus('Entregue');
   };
 

@@ -1,21 +1,14 @@
-import { Link, useNavigate } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import PropType from 'prop-types';
 import moment from 'moment/moment';
-import { setToken } from '../services/requests';
 
-import convertValue from '../utils/convertValue';
+import convertValue from '../../utils/convertValue';
 
 export default function OrderCard({ order }) {
   const { id, status, sale_date: saleDate,
     totalPrice, deliveryAddress, deliveryNumber } = order;
-  const navigate = useNavigate();
-  const link = Link;
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (!user && !user?.token) return navigate('/login');
-    setToken(user.token);
-  }, [navigate, link]);
+
   return (
     <Link to={ `/seller/orders/${id}` }>
       <div>
@@ -35,7 +28,6 @@ export default function OrderCard({ order }) {
           {`${deliveryAddress}, ${deliveryNumber}`}
         </p>
       </div>
-      {' '}
     </Link>
   );
 }
