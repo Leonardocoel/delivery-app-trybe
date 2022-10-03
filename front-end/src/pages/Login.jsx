@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import validations from '../utils/validations';
 import { requestPost, setToken } from '../services/requests';
 import { Form } from '../styles/LoginForm';
-import '../CSS/Login.css';
+import Container from '../styles/Container';
+import Logo from '../images/4u.png';
+import '../CSS/Default.css';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -47,42 +49,46 @@ export default function Login() {
   };
 
   return (
-    <Form onSubmit={ (e) => handleSubmit(e) }>
-      <input
-        data-testid="common_login__input-email"
-        type="email"
-        name="email"
-        id="email"
-        value={ email }
-        placeholder="digite seu email"
-        onChange={ (e) => handleChange(e) }
-      />
-      <input
-        data-testid="common_login__input-password"
-        type="password"
-        name="password"
-        id="password"
-        value={ password }
-        onChange={ (e) => handleChange(e) }
-      />
-      <button
-        data-testid="common_login__button-login"
-        type="submit"
-        disabled={ isDisabled }
-      >
-        Login
+    <Container>
+      <img src={ Logo } alt="" />
+      <Form onSubmit={ (e) => handleSubmit(e) }>
+        <input
+          data-testid="common_login__input-email"
+          type="email"
+          name="email"
+          id="email"
+          value={ email }
+          placeholder="Email"
+          onChange={ (e) => handleChange(e) }
+        />
+        <input
+          data-testid="common_login__input-password"
+          type="password"
+          name="password"
+          placeholder="Password"
+          id="password"
+          value={ password }
+          onChange={ (e) => handleChange(e) }
+        />
+        <button
+          data-testid="common_login__button-login"
+          type="submit"
+          disabled={ isDisabled }
+        >
+          Login
 
-      </button>
-      <button
-        data-testid="common_login__button-register"
-        type="button"
-        onClick={ () => navigate('/register') }
-      >
-        Registrar
+        </button>
+        <button
+          data-testid="common_login__button-register"
+          type="button"
+          onClick={ () => navigate('/register') }
+        >
+          Registrar
 
-      </button>
-      {errMessage
+        </button>
+        {errMessage
             && <p data-testid="common_login__element-invalid-email">{errMessage}</p>}
-    </Form>
+      </Form>
+    </Container>
   );
 }
