@@ -5,6 +5,6 @@ const router = Router();
 
 router.get('/:id', salesProductsController.getSaleById);
 router.get('/', salesProductsController.getAll);
-router.patch('/:id', salesProductsController.patchSale);
+router.patch('/:id', salesProductsController.patchOrder);
 
 module.exports = router;

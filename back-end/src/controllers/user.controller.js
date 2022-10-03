@@ -1,6 +1,6 @@
 const userService = require('../services/user.service');
 
-const getAllUsers = async (req, res, next) => {
+const getUsersByRole = async (req, res, next) => {
   const { role } = req.params;
   try { 
     const users = await userService.getAll(role);
@@ -11,5 +11,5 @@ const getAllUsers = async (req, res, next) => {
 };
 
 module.exports = {
-  getAllUsers, 
+   getUsersByRole, 
   };
