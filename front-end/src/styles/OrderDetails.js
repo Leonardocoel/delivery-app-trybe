@@ -18,7 +18,6 @@ export const OrderDetails = styled.div`
     margin-block: 20px;
     border: 1px solid black;
     text-align: center;
-    background-color: antiquewhite;
 
     button:disabled {
     background-color: grey;
@@ -48,7 +47,6 @@ export const OrderDetails = styled.div`
   }
 
   table {
-    background-color: antiquewhite;
     width: 100%;
     text-align: center;
     border-spacing: 30px;

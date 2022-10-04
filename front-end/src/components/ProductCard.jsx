@@ -44,9 +44,8 @@ export default function ProductCard() {
           src={ urlImage }
           alt={ name }
         />
-        <div className="quantity_input_and_buttons">
+        <div>
           <button
-            className="subtract_quantity_button"
             type="button"
             data-testid={ `customer_products__button-card-rm-item-${id}` }
             onClick={ () => cartDispatch(
@@ -57,7 +56,6 @@ export default function ProductCard() {
 
           </button>
           <input
-            className="quantity_input"
             name="quantity"
             value={ items[name]?.quantity || '0' }
             data-testid={ `customer_products__input-card-quantity-${id}` }
@@ -67,7 +65,6 @@ export default function ProductCard() {
             ) }
           />
           <button
-            className="add_quantity_button"
             type="button"
             data-testid={ `customer_products__button-card-add-item-${id}` }
             onClick={ () => cartDispatch(

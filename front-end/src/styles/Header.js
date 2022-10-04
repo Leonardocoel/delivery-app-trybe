@@ -2,14 +2,14 @@ import styled from 'styled-components';
 
 export const Navbar = styled.header`
   display: flex;
-  background-color: whine;
+  background-color: white;
 
   button {
     padding: 20px;
     border: none;
     
     &:hover {
-    border: 2px solid purple;
+    border: 2px solid black;
   }
     
   }
