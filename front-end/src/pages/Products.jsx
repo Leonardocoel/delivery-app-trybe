@@ -4,6 +4,7 @@ import CustomerContext from '../context/CustomerContext';
 import Header from '../components/Header';
 import ProductsCard from '../components/ProductCard';
 import convertValue from '../utils/convertValue';
+import { ButtonCart, Container } from '../styles/Products';
 
 export default function CustomerProducts() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function CustomerProducts() {
   return (
     <div>
       <Header />
-      <button
+      <ButtonCart
         type="button"
         data-testid="customer_products__button-cart"
         onClick={ () => navigate('/customer/checkout') }
@@ -23,8 +24,10 @@ export default function CustomerProducts() {
           {`Ver Carinho: ${convertValue(total)}`}
         </p>
 
-      </button>
-      <ProductsCard />
+      </ButtonCart>
+      <Container>
+        <ProductsCard />
+      </Container>
     </div>
   );
 }
