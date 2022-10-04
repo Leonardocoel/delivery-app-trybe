@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import CostumerContext from '../../context/CostumerContext';
+import CustomerContext from '../../context/CustomerContext';
 import convertValue from '../../utils/convertValue';
 
 export default function Table() {
-  const { cartState, cartDispatch } = useContext(CostumerContext);
+  const { cartState, cartDispatch } = useContext(CustomerContext);
   const [total, items] = cartState;
 
   return (

@@ -1,6 +1,6 @@
 import React, { useMemo, useReducer } from 'react';
 import PropTypes from 'prop-types';
-import CostumerContext from './CostumerContext';
+import CustomerContext from './CustomerContext';
 
 const SaveCart = (cart) => {
   let total = 0;
@@ -38,9 +38,9 @@ function CustomerProvider({ children }) {
   }), [cartState]);
 
   return (
-    <CostumerContext.Provider value={ contextValue }>
+    <CustomerContext.Provider value={ contextValue }>
       {children}
-    </CostumerContext.Provider>
+    </CustomerContext.Provider>
   );
 }
 

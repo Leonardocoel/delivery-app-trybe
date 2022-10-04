@@ -19,23 +19,33 @@ export default function Header() {
 
   return (
     <div>
-      <button
-        type="button"
-        onClick={ () => navigate('/customer/products') }
-        data-testid="customer_products__element-navbar-link-products"
-      >
-        Produtos
-      </button>
-
-      {role === 'customer' && (
+      {(role === 'seller') ? (
         <button
           type="button"
-          onClick={ () => navigate('/customer/orders') }
+          onClick={ () => navigate('/seller/orders') }
           data-testid="customer_products__element-navbar-link-orders"
         >
-          Meus Pedidos
+          Pedidos
         </button>
-      )}
+      ) : (
+        <>
+          <button
+            type="button"
+            onClick={ () => navigate('/customer/products') }
+            data-testid="customer_products__element-navbar-link-products"
+          >
+            Produtos
+          </button>
+
+          <button
+            type="button"
+            onClick={ () => navigate('/customer/orders') }
+            data-testid="customer_products__element-navbar-link-orders"
+          >
+            Meus Pedidos
+          </button>
+        </>
+      ) }
       <button
         type="button"
         onClick={ () => navigate('/customer/profile') }

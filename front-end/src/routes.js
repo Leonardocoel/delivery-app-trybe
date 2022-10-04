@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import CustomerProvider from './context/CostumerProvider';
-import CustomerOrder from './pages/CustomerOrders';
-import Checkout from './pages/Checkout';
-import Register from './pages/Register';
-import CustomerProducts from './pages/Customer';
+import CustomerProvider from './context/CustomerProvider';
+
 import Login from './pages/Login';
-import SellerOrders from './pages/SellerOrders';
+import Register from './pages/Register';
+import Products from './pages/Products';
+import Checkout from './pages/Checkout';
+import Orders from './pages/Orders';
 import OrderDetails from './pages/OrderDetails';
-import UserOrders from './pages/UserOrders';
 
 export default function ReactRoutes() {
   const [redirectToLogin, setRedirectToLogin] = useState(false);
@@ -47,39 +46,42 @@ export default function ReactRoutes() {
           path="/register"
           element={ <Register /> }
         />
-        <Route
-          path="/customer/products"
-          element={
-            <CustomerProvider>
-              <CustomerProducts />
-            </CustomerProvider>
-          }
-        />
-        <Route
-          path="/customer/checkout"
-          element={
-            <CustomerProvider>
-              <Checkout />
-            </CustomerProvider>
-          }
-        />
-        <Route
-          path="/customer/orders"
-          element={ <UserOrders /> }
-        />
-        <Route
-          path="/customer/orders/:id"
-          element={ <CustomerOrder /> }
-        />
-
-        <Route
-          path="/seller/orders"
-          element={ <SellerOrders /> }
-        />
-        <Route
-          path="/seller/orders/:id"
-          element={ <OrderDetails /> }
-        />
+        <Route path="/customer">
+          <Route
+            path="products"
+            element={
+              <CustomerProvider>
+                <Products />
+              </CustomerProvider>
+            }
+          />
+          <Route
+            path="checkout"
+            element={
+              <CustomerProvider>
+                <Checkout />
+              </CustomerProvider>
+            }
+          />
+          <Route
+            path="orders"
+            element={ <Orders /> }
+          />
+          <Route
+            path="orders/:id"
+            element={ <OrderDetails /> }
+          />
+        </Route>
+        <Route path="/seller">
+          <Route
+            path="orders"
+            element={ <Orders /> }
+          />
+          <Route
+            path="orders/:id"
+            element={ <OrderDetails /> }
+          />
+        </Route>
       </Routes>
 
     </BrowserRouter>

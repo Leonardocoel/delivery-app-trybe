@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CustomerContext from '../../context/CostumerContext';
+import CustomerContext from '../../context/CustomerContext';
 import { requestGet, requestPost, setToken } from '../../services/requests';
 
 export default function Address() {
@@ -22,8 +22,8 @@ export default function Address() {
 
   useEffect(() => {
     const getSellers = async () => {
-      const seller = await requestGet('/users/seller');
-      setSellers(seller);
+      const response = await requestGet('/users/seller');
+      setSellers(response);
     };
     getSellers();
   }, []);
@@ -44,7 +44,7 @@ export default function Address() {
         .map(({ id, quantity }) => ({ productId: id, quantity })),
     };
 
-    const { saleId } = await requestPost('/customer/checkout', body);
+    const { saleId } = await requestPost('/sales', body);
     navigate(`/customer/orders/${saleId}`);
   };
 

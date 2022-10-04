@@ -1,14 +1,17 @@
 import moment from 'moment';
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { requestGet, setToken } from '../../services/requests';
+import { requestGet, setToken, requestPatch } from '../../services/requests';
 import convertValue from '../../utils/convertValue';
 
-export default function ProductDetails() {
+const PAGE_ID = 'customer_order_details__';
+
+export default function OrderDetails() {
   const navigate = useNavigate();
   const [order, setOrder] = useState({ });
+  const [status, setStatus] = useState('');
   const { id } = useParams();
-  const { seller, status, totalPrice, products } = order;
+  const { seller, totalPrice, products } = order;
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -17,14 +20,20 @@ export default function ProductDetails() {
     setToken(user.token);
   }, [navigate]);
 
-  const getOrder = useCallback(async () => {
-    const orderById = await requestGet(`/customer/orders/${id}`);
+  const getOrders = useCallback(async () => {
+    const orderById = await requestGet(`/orders/${id}`);
     setOrder(orderById);
+    setStatus(orderById.status);
   }, [id]);
 
   useEffect(() => {
-    getOrder();
-  }, [getOrder]);
+    getOrders();
+  }, [getOrders]);
+
+  const handleClick = async () => {
+    await requestPatch(`orders/${id}`, { message: 'Entregue' });
+    setStatus('Entregue');
+  };
 
   return (
     Object.values(order).length > 0 && (
@@ -32,32 +41,32 @@ export default function ProductDetails() {
         <h2>Detalhes do Pedido</h2>
         <section>
           <span
-            data-testid="customer_order_details__element-order-details-label-order-id"
+            data-testid={ `${PAGE_ID}element-order-details-label-order-id` }
           >
             {`PEDIDO 000${order.id}`}
 
           </span>
           <span
-            data-testid="customer_order_details__element-order-details-label-seller-name"
+            data-testid={ `${PAGE_ID}element-order-details-label-seller-name` }
           >
             {`P.vend: ${seller.name}`}
 
           </span>
           <span
-            data-testid="customer_order_details__element-order-details-label-order-date"
+            data-testid={ `${PAGE_ID}element-order-details-label-order-date` }
           >
             {moment(order.sale_date).format('DD/MM/YYYY')}
           </span>
           <span
-            data-testid={ 'customer_order_details__element-order-details-label'
-            + '-delivery-status' }
+            data-testid={ `${PAGE_ID}element-order-details-label-delivery-status` }
           >
             {status}
           </span>
           <button
             type="button"
-            data-testid="customer_order_details__button-delivery-check"
-            disabled
+            data-testid={ `${PAGE_ID}button-delivery-check` }
+            disabled={ status !== 'Em Trânsito' }
+            onClick={ () => handleClick() }
           >
             Marcar como entregue
 
@@ -79,7 +88,7 @@ export default function ProductDetails() {
                 <tr key={ name }>
                   <td
                     data-testid={
-                      `customer_order_details__element-order-table-item-number-${index}`
+                      `${PAGE_ID}element-order-table-item-number-${index}`
                     }
                   >
                     {index + 1}
@@ -87,7 +96,7 @@ export default function ProductDetails() {
                   </td>
                   <td
                     data-testid={
-                      `customer_order_details__element-order-table-name-${index}`
+                      `${PAGE_ID}element-order-table-name-${index}`
                     }
                   >
                     {name}
@@ -95,7 +104,7 @@ export default function ProductDetails() {
                   </td>
                   <td
                     data-testid={
-                      `customer_order_details__element-order-table-quantity-${index}`
+                      `${PAGE_ID}element-order-table-quantity-${index}`
                     }
                   >
                     {quantity}
@@ -103,7 +112,7 @@ export default function ProductDetails() {
                   </td>
                   <td
                     data-testid={
-                      `customer_order_details__element-order-table-unit-price-${index}`
+                      `${PAGE_ID}element-order-table-unit-price-${index}`
                     }
                   >
                     {price}
@@ -111,7 +120,7 @@ export default function ProductDetails() {
                   </td>
                   <td
                     data-testid={
-                      `customer_order_details__element-order-table-sub-total-${index}`
+                      `${PAGE_ID}element-order-table-sub-total-${index}`
                     }
                   >
                     {convertValue(quantity * Number(price))}
@@ -124,7 +133,7 @@ export default function ProductDetails() {
           </tbody>
         </table>
         <h2
-          data-testid="customer_order_details__element-order-total-price"
+          data-testid={ `${PAGE_ID}element-order-total-price` }
         >
           {convertValue(totalPrice)}
         </h2>

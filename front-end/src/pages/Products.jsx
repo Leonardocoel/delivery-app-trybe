@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CustomerContext from '../context/CostumerContext';
+import CustomerContext from '../context/CustomerContext';
 import Header from '../components/Header';
-import Products from '../components/Products';
+import ProductsCard from '../components/ProductCard';
 import convertValue from '../utils/convertValue';
 
 export default function CustomerProducts() {
@@ -24,7 +24,7 @@ export default function CustomerProducts() {
         </p>
 
       </button>
-      <Products />
+      <ProductsCard />
     </div>
   );
 }
