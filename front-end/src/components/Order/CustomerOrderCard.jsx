@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropType from 'prop-types';
 import moment from 'moment/moment';
-import { P } from '../../styles/Orders';
+import { P } from '../../styles/Status';
 
 import convertValue from '../../utils/convertValue';
 

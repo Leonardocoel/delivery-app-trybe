@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { requestGet, setToken, requestPatch } from '../../services/requests';
 import convertValue from '../../utils/convertValue';
+import { P } from '../../styles/Status';
 
 const PAGE_ID = 'customer_order_details__';
 
@@ -57,11 +58,12 @@ export default function OrderDetails() {
           >
             {moment(order.sale_date).format('DD/MM/YYYY')}
           </span>
-          <span
+          <P
+            status={ status }
             data-testid={ `${PAGE_ID}element-order-details-label-delivery-status` }
           >
             {status}
-          </span>
+          </P>
           <button
             type="button"
             data-testid={ `${PAGE_ID}button-delivery-check` }
@@ -132,11 +134,11 @@ export default function OrderDetails() {
 
           </tbody>
         </table>
-        <h2
+        <h3
           data-testid={ `${PAGE_ID}element-order-total-price` }
         >
-          {convertValue(totalPrice)}
-        </h2>
+          {`Total: ${convertValue(totalPrice)}`}
+        </h3>
       </div>
     ));
 }

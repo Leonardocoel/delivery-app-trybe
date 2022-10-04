@@ -4,7 +4,7 @@ import PropType from 'prop-types';
 import moment from 'moment/moment';
 
 import convertValue from '../../utils/convertValue';
-import { P } from '../../styles/Orders';
+import { P } from '../../styles/Status';
 
 export default function OrderCard({ order }) {
   const { id, status, sale_date: saleDate,
