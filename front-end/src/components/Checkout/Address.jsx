@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Div } from '../../styles/Checkout';
 import CustomerContext from '../../context/CustomerContext';
 import { requestGet, requestPost, setToken } from '../../services/requests';
 
@@ -49,7 +50,7 @@ export default function Address() {
   };
 
   return (
-    <div>
+    <Div>
       <h1>Detalhes e Endereço da Entrega</h1>
       <div>
         <label htmlFor="vendedor">
@@ -70,7 +71,6 @@ export default function Address() {
           Endereço
           <input
             data-testid="customer_checkout__input-address"
-            placeholder="Endereço"
             type="text"
             name="deliveryAddress"
             id="endereco"
@@ -82,7 +82,6 @@ export default function Address() {
           Número
           <input
             data-testid="customer_checkout__input-address-number"
-            placeholder="Número"
             type="text"
             name="deliveryNumber"
             id="numero"
@@ -99,6 +98,6 @@ export default function Address() {
 
         </button>
       </div>
-    </div>
+    </Div>
   );
 }
