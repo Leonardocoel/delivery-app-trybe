@@ -1,0 +1,54 @@
+import styled from 'styled-components';
+
+export const Orders = styled.div`
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 1rem;
+ margin: 20px;
+ margin-block: 10vh ;
+ 
+ a {
+   color: black;
+  }
+  
+  a:link {
+  text-decoration: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--secondary);
+  text-align: center;
+  flex-wrap: wrap;
+  flex-basis: 0%;
+
+  div {
+    p{
+      font-size: 1.1rem;
+      margin-block: 8px;
+    }
+  }
+
+  #adress {
+    font-size: 1.1rem;
+    flex-basis: 100%;
+    background-color: lightgray;
+  }
+
+ }
+
+`;
+
+export const P = styled.p`
+background-color:${({ status }) => (
+    ((status === 'Pendente') && 'hsl(54, 100%, 40%)')
+  || ((status === 'Preparando') && '#66CC00')
+  || ((status === 'Em Trânsito') && '#66CC00')
+  || ((status === 'Entregue') && '#00CC9B')
+
+  )};
+    width: 33%;
+    padding: 40px;
+    
+`;
+
+export default Orders;

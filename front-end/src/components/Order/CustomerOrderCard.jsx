@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropType from 'prop-types';
 import moment from 'moment/moment';
+import { P } from '../../styles/Orders';
 
 import convertValue from '../../utils/convertValue';
 
@@ -11,12 +12,19 @@ export default function OrderCard({ order }) {
   return (
     <Link to={ `/customer/orders/${id}` }>
       <div>
+        <p>Pedido</p>
         <p data-testid={ `customer_orders__element-order-id-${id}` }>
-          {`Pedido 000${id}`}
+          {`000${id}`}
         </p>
-        <p data-testid={ `customer_orders__element-delivery-status-${id}` }>
-          {status}
-        </p>
+
+      </div>
+      <P
+        status={ status }
+        data-testid={ `customer_orders__element-delivery-status-${id}` }
+      >
+        {status}
+      </P>
+      <div>
         <p data-testid={ `customer_orders__element-order-date-${id}` }>
           {moment(saleDate).format('DD/MM/YYYY')}
         </p>

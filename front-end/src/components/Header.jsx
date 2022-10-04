@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Navbar } from '../styles/Header';
 
 export default function Header() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function Header() {
   };
 
   return (
-    <div>
+    <Navbar>
       {(role === 'seller') ? (
         <button
           type="button"
@@ -47,6 +48,7 @@ export default function Header() {
         </>
       ) }
       <button
+        className="user"
         type="button"
         onClick={ () => navigate('/customer/profile') }
         data-testid="customer_products__element-navbar-user-full-name"
@@ -60,6 +62,6 @@ export default function Header() {
       >
         Sair
       </button>
-    </div>
+    </Navbar>
   );
 }

@@ -4,6 +4,7 @@ import { requestGet, setToken } from '../services/requests';
 import Header from '../components/Header';
 import CustomerOrderCard from '../components/Order/CustomerOrderCard';
 import SellerOrderCard from '../components/Order/SellerOrderCard';
+import { Orders } from '../styles/Orders';
 
 export default function SellerOrders() {
   const navigate = useNavigate();
@@ -29,11 +30,13 @@ export default function SellerOrders() {
   return (
     <>
       <Header />
-      {orders.map((order) => (
-        (pathname === '/customer/orders')
-          ? <CustomerOrderCard key={ order.id } order={ order } />
-          : <SellerOrderCard key={ order.id } order={ order } />
-      ))}
+      <Orders>
+        {orders.map((order) => (
+          (pathname === '/customer/orders')
+            ? <CustomerOrderCard key={ order.id } order={ order } />
+            : <SellerOrderCard key={ order.id } order={ order } />
+        ))}
+      </Orders>
     </>
   );
 }
