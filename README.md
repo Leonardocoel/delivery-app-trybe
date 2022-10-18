@@ -24,7 +24,7 @@
         <li><a href="#setup">Setup</a></li>
       </ul>
     </li>
-    <li><a href="#team"> Team </a></li>
+    <li><a href="#-team"> Team </a></li>
   </ol>
 </details>
 
